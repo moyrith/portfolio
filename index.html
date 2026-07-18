@@ -22,7 +22,7 @@
   </script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: auto; }
     body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
 
     @keyframes fadeUp {
@@ -47,6 +47,26 @@
     .footer-link:hover { opacity: 0.5; }
     .verify-link { color:#8A8A84; text-decoration:underline; text-underline-offset:3px; text-decoration-color:#C8C8C2; transition: text-decoration-color 0.2s ease, color 0.2s ease; }
     .verify-link:hover { color:#4E4E48; text-decoration-color:#4E4E48; }
+  
+    /* Custom Thin Scrollbar */
+    ::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #4E4E48;
+      border-radius: 8px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #0C0C0A;
+    }
+    * {
+      scrollbar-width: thin;
+      scrollbar-color: #4E4E48 transparent;
+    }
   </style>
 </head>
 <body class="font-body" style="background:#F6F6F3; color:#0C0C0A;">
@@ -258,5 +278,66 @@
     </div>
   </footer>
 
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // =========================================================
+      // Premium Kinetic Inertial Page Scroll Engine
+      // =========================================================
+      let scrollCurrentY = window.scrollY;
+      let scrollTargetY = window.scrollY;
+      let isInteracting = false;
+
+      // Intercept wheel events to calculate custom step inertia values
+      window.addEventListener('wheel', (e) => {
+        e.preventDefault();
+        isInteracting = true;
+        scrollTargetY += e.deltaY;
+        scrollTargetY = Math.max(0, Math.min(scrollTargetY, document.documentElement.scrollHeight - window.innerHeight));
+      }, { passive: false });
+
+      // Keep parameters synchronized when external browser events happen
+      window.addEventListener('scroll', () => {
+        if (!isInteracting) {
+          scrollCurrentY = window.scrollY;
+          scrollTargetY = window.scrollY;
+        }
+      });
+
+      // Bind anchors cleanly to translate smoothly to exact target offset values
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          const targetId = this.getAttribute('href');
+          if (targetId === '#top') {
+            isInteracting = true;
+            scrollTargetY = 0;
+            return;
+          }
+          const targetElem = document.querySelector(targetId);
+          if (targetElem) {
+            isInteracting = true;
+            const targetOffset = targetElem.getBoundingClientRect().top + window.scrollY - 120;
+            scrollTargetY = Math.max(0, Math.min(targetOffset, document.documentElement.scrollHeight - window.innerHeight));
+          }
+        });
+      });
+
+      const renderPageScrollTick = () => {
+        if (isInteracting) {
+          const deltaScroll = scrollTargetY - scrollCurrentY;
+          if (Math.abs(deltaScroll) > 0.3) {
+            scrollCurrentY += deltaScroll * 0.14; // Matches premium fluid slider settings
+            window.scrollTo(0, scrollCurrentY);
+          } else {
+            scrollCurrentY = scrollTargetY;
+            window.scrollTo(0, scrollCurrentY);
+            isInteracting = false;
+          }
+        }
+        requestAnimationFrame(renderPageScrollTick);
+      };
+      requestAnimationFrame(renderPageScrollTick);
+    });
+  </script>
 </body>
 </html>
