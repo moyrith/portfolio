@@ -67,6 +67,74 @@
       scrollbar-width: thin;
       scrollbar-color: #4E4E48 transparent;
     }
+    /* Services Expand/Collapse Engine */
+    .services-wrapper {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .services-wrapper.is-expanded {
+      grid-template-rows: 1fr;
+    }
+    .services-inner {
+      overflow: hidden;
+    }
+    .services-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      padding-top: 24px;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .services-wrapper.is-expanded .services-grid {
+      opacity: 1;
+      transform: translateY(0);
+      /* Slight delay so the height opens first, then content fades in */
+      transition-delay: 0.1s; 
+    }
+    @media (min-width: 768px) {
+      .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    /* Bento Card Styling */
+    .service-card {
+      border: 1px solid #E2E2DE;
+      padding: 24px;
+      background: transparent;
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+    .service-card:hover {
+      border-color: #0C0C0A;
+    }
+    /* Custom Toggle Header */
+    .services-header {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 0;
+    }
+    .services-header:hover .toggle-line {
+      background: #0C0C0A;
+    }
+    .toggle-icon {
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .is-expanded-icon {
+      transform: rotate(180deg);
+    }
+    .toggle-line {
+      flex: 1; 
+      height: 1px; 
+      background: #E2E2DE; 
+      transition: background 0.2s ease;
+    }
   </style>
 </head>
 <body class="font-body" style="background:#F6F6F3; color:#0C0C0A;">
@@ -163,6 +231,78 @@
         <p class="font-body" style="font-size:13px; font-weight:300; line-height:1.65; color:#4E4E48;">
           Local n8n workflow (7 nodes). One video uploaded 6× to YouTube in two title/description variants via custom JavaScript. Built with Claude &amp; Gemini guidance for local setup and architecture.
         </p>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section style="padding-bottom:80px;">
+      
+      <!-- Interactive Toggle Header -->
+      <button id="servicesToggleBtn" class="services-header" aria-expanded="false">
+        <div style="display:flex; align-items:center; gap:16px; flex:1;">
+          <span class="font-body" style="font-size:10px; letter-spacing:0.2em; text-transform:uppercase; color:#0C0C0A; font-weight:500;">Services</span>
+          <div class="toggle-line"></div>
+        </div>
+        <svg id="servicesToggleIcon" class="toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0C0C0A" stroke-width="1.5" style="margin-left:16px;">
+          <path d="M6 9l6 6 6-6"/>
+        </svg>
+      </button>
+
+      <!-- Collapsible Grid Content -->
+      <div id="servicesWrapper" class="services-wrapper">
+        <div class="services-inner">
+          <div class="services-grid">
+            
+            <!-- Web Dev Card -->
+            <div class="service-card">
+              <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:12px;">
+                <h3 class="font-display" style="font-size:16px; font-weight:700; color:#0C0C0A;">Landing Pages</h3>
+                <span class="font-body" style="font-size:10px; letter-spacing:0.1em; color:#8A8A84;">01</span>
+              </div>
+              <p class="font-body" style="font-size:13px; font-weight:300; line-height:1.65; color:#4E4E48; margin-bottom:16px;">
+                High-conversion web development built for speed and minimalist precision.
+              </p>
+              <span class="font-body" style="font-size:9px; letter-spacing:0.15em; text-transform:uppercase; color:#8A8A84;">Value: Identity & Conversion</span>
+            </div>
+
+            <!-- SaaS Dev Card -->
+            <div class="service-card">
+              <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:12px;">
+                <h3 class="font-display" style="font-size:16px; font-weight:700; color:#0C0C0A;">SaaS / Web Apps</h3>
+                <span class="font-body" style="font-size:10px; letter-spacing:0.1em; color:#8A8A84;">02</span>
+              </div>
+              <p class="font-body" style="font-size:13px; font-weight:300; line-height:1.65; color:#4E4E48; margin-bottom:16px;">
+                Rapid MVP prototyping, system architecture, and robust client-side deployment.
+              </p>
+              <span class="font-body" style="font-size:9px; letter-spacing:0.15em; text-transform:uppercase; color:#8A8A84;">Value: Concept to Market</span>
+            </div>
+
+            <!-- Automation Card -->
+            <div class="service-card">
+              <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:12px;">
+                <h3 class="font-display" style="font-size:16px; font-weight:700; color:#0C0C0A;">Workflow Automation</h3>
+                <span class="font-body" style="font-size:10px; letter-spacing:0.1em; color:#8A8A84;">03</span>
+              </div>
+              <p class="font-body" style="font-size:13px; font-weight:300; line-height:1.65; color:#4E4E48; margin-bottom:16px;">
+                Custom n8n pipelines engineered to eliminate manual hours and scale local operations.
+              </p>
+              <span class="font-body" style="font-size:9px; letter-spacing:0.15em; text-transform:uppercase; color:#8A8A84;">Value: Operational Scale</span>
+            </div>
+
+            <!-- Generative AI Card -->
+            <div class="service-card">
+              <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:12px;">
+                <h3 class="font-display" style="font-size:16px; font-weight:700; color:#0C0C0A;">Generative Assets</h3>
+                <span class="font-body" style="font-size:10px; letter-spacing:0.1em; color:#8A8A84;">04</span>
+              </div>
+              <p class="font-body" style="font-size:13px; font-weight:300; line-height:1.65; color:#4E4E48; margin-bottom:16px;">
+                Bespoke digital media creation utilizing advanced visual models like GPT Image 2.0 and Veo 3.1.
+              </p>
+              <span class="font-body" style="font-size:9px; letter-spacing:0.15em; text-transform:uppercase; color:#8A8A84;">Value: Next-Gen Visuals</span>
+            </div>
+
+          </div>
+        </div>
       </div>
     </section>
 
@@ -340,6 +480,19 @@
         requestAnimationFrame(renderPageScrollTick);
       };
       requestAnimationFrame(renderPageScrollTick);
+
+      // Services Expand/Collapse Logic
+      const servicesBtn = document.getElementById('servicesToggleBtn');
+      const servicesWrapper = document.getElementById('servicesWrapper');
+      const servicesIcon = document.getElementById('servicesToggleIcon');
+
+      if(servicesBtn && servicesWrapper && servicesIcon) {
+        servicesBtn.addEventListener('click', () => {
+          const isExpanded = servicesWrapper.classList.toggle('is-expanded');
+          servicesIcon.classList.toggle('is-expanded-icon');
+          servicesBtn.setAttribute('aria-expanded', isExpanded);
+        });
+      }
     });
   </script>
 </body>
