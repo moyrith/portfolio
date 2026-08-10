@@ -166,59 +166,6 @@
       </div>
     </section>
 
-    <!-- SERVICES -->
-    <section style="padding-bottom:80px;">
-      <div style="display:flex; align-items:center; gap:16px; margin-bottom:32px;">
-        <span class="font-body" style="font-size:10px; letter-spacing:0.2em; text-transform:uppercase; color:#8A8A84; white-space:nowrap;">Services</span>
-        <div style="flex:1; height:1px; background:#E2E2DE;"></div>
-      </div>
-
-      <!-- Tier 1 -->
-      <div class="service-item" style="border-bottom:1px solid #E2E2DE;">
-        <button class="service-btn" style="width:100%; display:flex; justify-content:space-between; align-items:center; padding:20px 0; background:none; border:none; cursor:pointer;">
-          <span class="font-display" style="font-size:17px; font-weight:700; color:#0C0C0A; text-align:left;">MVP Rapid Prototyping</span>
-          <svg class="icon-toggle" style="transition: transform 0.3s ease; color:#8A8A84;" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="6 9 12 15 18 9"></polyline>
-          </svg>
-        </button>
-        <div class="service-content" style="max-height:0; overflow:hidden; transition:max-height 0.4s cubic-bezier(0.16,1,0.3,1);">
-          <p class="font-body" style="padding-bottom:20px; font-size:13px; font-weight:300; line-height:1.65; color:#4E4E48;">
-            Taking your idea from zero to a deployed, functional Minimum Viable Product. Utilizing AI-agentic workflows to generate robust codebases, ensuring WCAG & OWASP compliance from day one. Perfect for founders looking to validate fast.
-          </p>
-        </div>
-      </div>
-
-      <!-- Tier 2 -->
-      <div class="service-item" style="border-bottom:1px solid #E2E2DE;">
-        <button class="service-btn" style="width:100%; display:flex; justify-content:space-between; align-items:center; padding:20px 0; background:none; border:none; cursor:pointer;">
-          <span class="font-display" style="font-size:17px; font-weight:700; color:#0C0C0A; text-align:left;">SaaS & Web App Development</span>
-          <svg class="icon-toggle" style="transition: transform 0.3s ease; color:#8A8A84;" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="6 9 12 15 18 9"></polyline>
-          </svg>
-        </button>
-        <div class="service-content" style="max-height:0; overflow:hidden; transition:max-height 0.4s cubic-bezier(0.16,1,0.3,1);">
-          <p class="font-body" style="padding-bottom:20px; font-size:13px; font-weight:300; line-height:1.65; color:#4E4E48;">
-            Building responsive, highly structured single-page applications and dashboards using Next.js, React, and Tailwind CSS. Focused on clean architecture, minimal technical debt, and a seamless user experience.
-          </p>
-        </div>
-      </div>
-
-      <!-- Tier 3 -->
-      <div class="service-item" style="border-bottom:1px solid #E2E2DE;">
-        <button class="service-btn" style="width:100%; display:flex; justify-content:space-between; align-items:center; padding:20px 0; background:none; border:none; cursor:pointer;">
-          <span class="font-display" style="font-size:17px; font-weight:700; color:#0C0C0A; text-align:left;">Workflow Automation Setup</span>
-          <svg class="icon-toggle" style="transition: transform 0.3s ease; color:#8A8A84;" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="6 9 12 15 18 9"></polyline>
-          </svg>
-        </button>
-        <div class="service-content" style="max-height:0; overflow:hidden; transition:max-height 0.4s cubic-bezier(0.16,1,0.3,1);">
-          <p class="font-body" style="padding-bottom:20px; font-size:13px; font-weight:300; line-height:1.65; color:#4E4E48;">
-            Engineering robust local and cloud pipelines to automate your repetitive tasks. Specializing in n8n and custom API orchestration to save you hours of manual labor every week.
-          </p>
-        </div>
-      </div>
-    </section>
-
     <!-- EXPERIENCE -->
     <section style="padding-bottom:80px;">
       <div style="display:flex; align-items:center; gap:16px; margin-bottom:32px;">
@@ -336,29 +283,6 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      // =========================================================
-      // Services Accordion Engine
-      // =========================================================
-      const serviceBtns = document.querySelectorAll('.service-btn');
-      
-      serviceBtns.forEach(btn => {
-        btn.addEventListener('click', function() {
-          const content = this.nextElementSibling;
-          const icon = this.querySelector('.icon-toggle');
-          const isOpen = content.style.maxHeight !== '0px' && content.style.maxHeight !== '';
-
-          // Close all open accordions first (optional: remove this if you want multiple open at once)
-          document.querySelectorAll('.service-content').forEach(el => el.style.maxHeight = '0px');
-          document.querySelectorAll('.icon-toggle').forEach(el => el.style.transform = 'rotate(0deg)');
-          document.querySelectorAll('.service-btn .font-display').forEach(el => el.style.opacity = '1');
-
-          if (!isOpen) {
-            content.style.maxHeight = content.scrollHeight + "px";
-            icon.style.transform = 'rotate(-180deg)';
-            this.querySelector('.font-display').style.opacity = '0.5'; // Subtle dim on the active title
-          }
-        });
-      });
       // =========================================================
       // Premium Kinetic Inertial Page Scroll Engine
       // =========================================================
