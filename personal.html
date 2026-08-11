@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Off Duty — Moyrith</title>
+  <meta name="robots" content="noindex" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['Syne', 'sans-serif'],
+            body: ['Inter', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: auto; }
+    body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0);    }
+    }
+    .a1 { animation: fadeUp 0.75s cubic-bezier(0.16,1,0.3,1) 0.00s both; }
+    .a2 { animation: fadeUp 0.75s cubic-bezier(0.16,1,0.3,1) 0.10s both; }
+    .a3 { animation: fadeUp 0.75s cubic-bezier(0.16,1,0.3,1) 0.20s both; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .a1,.a2,.a3 { animation: none; }
+    }
+
+    a { text-decoration: none; }
+    .social-link { transition: opacity 0.2s ease, color 0.2s ease; }
+    .social-link:hover { opacity: 0.6; }
+    .footer-link { transition: opacity 0.2s ease; }
+    .footer-link:hover { opacity: 0.6; }
+
+    ::-webkit-scrollbar { width: 5px; height: 5px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #4A4538; border-radius: 8px; }
+    ::-webkit-scrollbar-thumb:hover { background: #C9954F; }
+    * { scrollbar-width: thin; scrollbar-color: #4A4538 transparent; }
+
+    /* Poster shelf */
+    .shelf {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+    @media (min-width: 640px) {
+      .shelf { grid-template-columns: repeat(5, 1fr); gap: 12px; }
+    }
+    .shelf-item {
+      position: relative;
+      aspect-ratio: 2 / 3;
+      overflow: hidden;
+      border: 1px solid #26241E;
+      background: #1B1914;
+      transition: border-color 0.25s ease, opacity 0.25s ease, transform 0.25s cubic-bezier(0.16,1,0.3,1);
+    }
+    .shelf:hover .shelf-item { opacity: 0.45; }
+    .shelf-item:hover { opacity: 1 !important; border-color: #C9954F; transform: translateY(-2px); }
+    .shelf-item img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+    }
+    .shelf-item .fallback {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      color: #4A4538;
+    }
+    .sr-only {
+      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+    }
+  </style>
+</head>
+<body class="font-body" style="background:#100F0C; color:#EDEAE0;">
+
+  <!-- ── HEADER ── -->
+  <header style="position:fixed; top:0; left:0; right:0; z-index:50; background:#100F0C; border-bottom:1px solid #26241E;">
+    <div class="max-w-3xl mx-auto px-6 md:px-10 flex items-center justify-between" style="height:52px;">
+      <div style="display:flex; align-items:center; gap:10px;">
+        <span class="font-display font-extrabold" style="font-size:12px; letter-spacing:0.14em; text-transform:uppercase; color:#EDEAE0;">Moyrith</span>
+        <span class="font-body" style="font-size:9px; letter-spacing:0.15em; text-transform:uppercase; color:#C9954F; border:1px solid #3A331F; padding:2px 6px;">Off Duty</span>
+      </div>
+      <nav style="display:flex; align-items:center; gap:20px;">
+        <!-- Back to portfolio -->
+        <a href="/index.html" aria-label="Back to portfolio" class="social-link" style="color:#EDEAE0; display:flex; align-items:center; gap:6px;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+          </svg>
+          <span class="font-body" style="font-size:11px; letter-spacing:0.14em; text-transform:uppercase;">Portfolio</span>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ── MAIN ── -->
+  <main class="max-w-3xl mx-auto px-6 md:px-10" style="padding-top:52px;">
+
+    <!-- HERO / ABOUT -->
+    <section style="padding-top:80px; padding-bottom:72px;">
+      <p class="a1 font-body" style="font-size:11px; letter-spacing:0.2em; text-transform:uppercase; color:#8C8579; margin-bottom:24px;">
+        Off the clock
+      </p>
+      <h1 class="a2 font-display" style="font-size:clamp(38px,6.5vw,58px); font-weight:800; line-height:1.05; letter-spacing:-0.01em; color:#EDEAE0; margin-bottom:28px; max-width:640px;">
+        No map, just current interests.
+      </h1>
+      <div class="a3" style="max-width:480px; display:flex; flex-direction:column; gap:14px;">
+        <p class="font-body" style="font-size:14px; font-weight:300; line-height:1.75; color:#B8B2A4;">
+          Kurdish, from Kurdistan — Iraq. In Amman, Jordan since 2015.
+        </p>
+        <p class="font-body" style="font-size:14px; font-weight:300; line-height:1.75; color:#B8B2A4;">
+          Eleven years of making things for an audience before I made things for clients. No social rulebook — I move on instinct, not etiquette.
+        </p>
+        <p class="font-body" style="font-size:14px; font-weight:300; line-height:1.75; color:#B8B2A4;">
+          This page isn't trying to get you to reach out. It's just what's true when the laptop's closed.
+        </p>
+      </div>
+    </section>
+
+    <!-- WATCHED -->
+    <section style="padding-bottom:64px;">
+      <div style="display:flex; align-items:center; gap:16px; margin-bottom:28px;">
+        <span class="font-body" style="font-size:10px; letter-spacing:0.2em; text-transform:uppercase; color:#8C8579; white-space:nowrap;">Watched</span>
+        <div style="flex:1; height:1px; background:#26241E;"></div>
+      </div>
+
+      <div class="shelf" id="watchedShelf"></div>
+    </section>
+
+    <!-- PLAYED -->
+    <section style="padding-bottom:88px;">
+      <div style="display:flex; align-items:center; gap:16px; margin-bottom:28px;">
+        <span class="font-body" style="font-size:10px; letter-spacing:0.2em; text-transform:uppercase; color:#8C8579; white-space:nowrap;">Played</span>
+        <div style="flex:1; height:1px; background:#26241E;"></div>
+      </div>
+
+      <div class="shelf" id="playedShelf" style="grid-template-columns:repeat(3,1fr); max-width:340px;"></div>
+    </section>
+
+  </main>
+
+  <!-- ── FOOTER ── -->
+  <footer style="border-top:1px solid #26241E;">
+    <div class="max-w-3xl mx-auto px-6 md:px-10" style="padding-top:28px; padding-bottom:28px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px;">
+      <p class="font-body" style="font-size:11px; color:#8C8579;">
+        © 2026 Mohamed Younis ·
+        <a href="/index.html" class="footer-link" style="color:#8C8579;">moyrith.com</a>
+      </p>
+      <p class="font-body" style="font-size:11px; color:#4A4538;">
+        Personal · Unfiltered
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+      // ---- Data ----
+      // Drop matching poster images at the paths below (2:3 aspect ratio works best).
+      // Until an image exists, each tile falls back to a quiet placeholder — nothing breaks.
+      const watched = [
+        { slug: 'the-walking-dead', title: 'The Walking Dead' },
+        { slug: 'from', title: 'From' },
+        { slug: 'lost', title: 'Lost' },
+        { slug: 'one-piece', title: 'One Piece' },
+        { slug: 'lord-of-the-rings', title: 'The Lord of the Rings' },
+        { slug: 'a-knight-of-the-seven-kingdoms', title: 'A Knight of the Seven Kingdoms' },
+        { slug: 'dexter', title: 'Dexter — the whole universe' },
+        { slug: 'shogun', title: 'Shōgun' },
+        { slug: 'only-murders-in-the-building', title: 'Only Murders in the Building' },
+        { slug: 'spider-man-noir', title: 'Spider-Noir' },
+        { slug: 'widows-bay', title: "Widow's Bay" },
+        { slug: 'the-mandalorian', title: 'The Mandalorian' },
+        { slug: 'mr-robot', title: 'Mr. Robot' },
+        { slug: 'sherlock', title: 'Sherlock' },
+        { slug: 'the-boys', title: 'The Boys' },
+        { slug: 'stranger-things', title: 'Stranger Things' },
+        { slug: 'brooklyn-nine-nine', title: 'Brooklyn Nine-Nine' },
+        { slug: 'its-always-sunny-in-philadelphia', title: "It's Always Sunny in Philadelphia" },
+        { slug: 'daredevil', title: 'Daredevil' },
+        { slug: 'loudermilk', title: 'Loudermilk' },
+        { slug: 'the-punisher', title: 'The Punisher' },
+        { slug: 'dark', title: 'Dark' },
+        { slug: 'breaking-bad', title: 'Breaking Bad' },
+        { slug: 'better-call-saul', title: 'Better Call Saul' },
+      ];
+
+      const played = [
+        { slug: 'sniper-elite-v2', title: 'Sniper Elite V2' },
+        { slug: 'sniper-elite-nazi-zombie-army-2', title: 'Sniper Elite: Nazi Zombie Army 2' },
+        { slug: 'cod-waw', title: 'Call of Duty: World at War' },
+      ];
+
+      const tileSVG = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 9h18M9 3v18"/></svg>`;
+
+      function renderShelf(containerId, items, folder) {
+        const container = document.getElementById(containerId);
+        items.forEach(item => {
+          const tile = document.createElement('div');
+          tile.className = 'shelf-item';
+
+          const img = document.createElement('img');
+          img.src = `assets/${folder}/${item.slug}.jpg`;
+          img.alt = item.title;
+          img.loading = 'lazy';
+          img.onerror = function () {
+            this.remove();
+            const fb = document.createElement('div');
+            fb.className = 'fallback';
+            fb.innerHTML = tileSVG;
+            fb.title = item.title;
+            tile.appendChild(fb);
+          };
+
+          const sr = document.createElement('span');
+          sr.className = 'sr-only';
+          sr.textContent = item.title;
+
+          tile.appendChild(img);
+          tile.appendChild(sr);
+          container.appendChild(tile);
+        });
+      }
+
+      renderShelf('watchedShelf', watched, 'posters');
+      renderShelf('playedShelf', played, 'games');
+
+      // ---- Kinetic scroll (matches main portfolio) ----
+      let scrollCurrentY = window.scrollY;
+      let scrollTargetY = window.scrollY;
+      let isInteracting = false;
+
+      window.addEventListener('wheel', (e) => {
+        e.preventDefault();
+        isInteracting = true;
+        scrollTargetY += e.deltaY;
+        scrollTargetY = Math.max(0, Math.min(scrollTargetY, document.documentElement.scrollHeight - window.innerHeight));
+      }, { passive: false });
+
+      window.addEventListener('scroll', () => {
+        if (!isInteracting) {
+          scrollCurrentY = window.scrollY;
+          scrollTargetY = window.scrollY;
+        }
+      });
+
+      const renderPageScrollTick = () => {
+        if (isInteracting) {
+          const deltaScroll = scrollTargetY - scrollCurrentY;
+          if (Math.abs(deltaScroll) > 0.3) {
+            scrollCurrentY += deltaScroll * 0.14;
+            window.scrollTo(0, scrollCurrentY);
+          } else {
+            scrollCurrentY = scrollTargetY;
+            window.scrollTo(0, scrollCurrentY);
+            isInteracting = false;
+          }
+        }
+        requestAnimationFrame(renderPageScrollTick);
+      };
+      requestAnimationFrame(renderPageScrollTick);
+    });
+  </script>
+</body>
+</html>

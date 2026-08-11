@@ -135,46 +135,6 @@
       background: #E2E2DE; 
       transition: background 0.2s ease;
     }
-    /* Professional / Personal Mode Toggle */
-    .mode-toggle {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 6px 12px;
-      border: 1px solid #E2E2DE;
-      border-radius: 20px;
-      background: transparent;
-      color: #0C0C0A;
-      font-size: 10px;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      transition: all 0.3s ease;
-      cursor: pointer;
-    }
-    .mode-toggle:hover {
-      background: #0C0C0A;
-      color: #F6F6F3;
-      border-color: #0C0C0A;
-    }
-    .mode-indicator {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: #0C0C0A;
-      transition: background 0.3s ease;
-    }
-    .mode-toggle:hover .mode-indicator {
-      background: #F6F6F3;
-    }
-
-    /* Page Fade Transition */
-    body {
-      opacity: 1;
-      transition: opacity 0.4s ease; /* Adjust duration here */
-    }
-    body.fade-out {
-      opacity: 0;
-    }
   </style>
 </head>
 <body class="font-body" style="background:#F6F6F3; color:#0C0C0A;">
@@ -185,12 +145,6 @@
       <span class="font-display font-extrabold" style="font-size:12px; letter-spacing:0.14em; text-transform:uppercase; color:#0C0C0A;">Moyrith</span>
       <nav style="display:flex; align-items:center; gap:20px;">
 
-        <!-- The Toggle Button -->
-        <a href="personal.html" class="mode-toggle font-body" id="modeToggleBtn">
-          <span class="mode-indicator"></span>
-          Human Mode
-        </a>
-        
         <!-- Résumé -->
         <a href="/Mohamed_Younis_Resume.pdf" target="_blank" rel="noopener" class="social-link font-body" style="font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:#0C0C0A;">Résumé</a>
 
@@ -212,6 +166,13 @@
         <a href="https://github.com/moyrith" target="_blank" rel="noopener" aria-label="GitHub" class="social-link" style="color:#0C0C0A; display:flex;">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
             <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+          </svg>
+        </a>
+
+        <!-- Off Duty (personal profile) -->
+        <a href="/personal.html" aria-label="Off duty" class="social-link" style="color:#0C0C0A; display:flex;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
           </svg>
         </a>
 
@@ -469,23 +430,6 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      // Seamless Page Transition Logic
-      const modeToggleBtn = document.getElementById('modeToggleBtn');
-      if (modeToggleBtn) {
-        modeToggleBtn.addEventListener('click', function(e) {
-          e.preventDefault(); // Stop immediate navigation
-          const targetUrl = this.getAttribute('href');
-          
-          // Trigger the CSS fade out
-          document.body.classList.add('fade-out');
-          
-          // Wait for the fade out to finish before actually navigating
-          setTimeout(() => {
-            window.location.href = targetUrl;
-          }, 400); // 400ms matches the CSS transition time perfectly
-        });
-      }
-      
       // =========================================================
       // Premium Kinetic Inertial Page Scroll Engine
       // =========================================================
