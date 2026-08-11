@@ -135,6 +135,46 @@
       background: #E2E2DE; 
       transition: background 0.2s ease;
     }
+    /* Professional / Personal Mode Toggle */
+    .mode-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      border: 1px solid #E2E2DE;
+      border-radius: 20px;
+      background: transparent;
+      color: #0C0C0A;
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    .mode-toggle:hover {
+      background: #0C0C0A;
+      color: #F6F6F3;
+      border-color: #0C0C0A;
+    }
+    .mode-indicator {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #0C0C0A;
+      transition: background 0.3s ease;
+    }
+    .mode-toggle:hover .mode-indicator {
+      background: #F6F6F3;
+    }
+
+    /* Page Fade Transition */
+    body {
+      opacity: 1;
+      transition: opacity 0.4s ease; /* Adjust duration here */
+    }
+    body.fade-out {
+      opacity: 0;
+    }
   </style>
 </head>
 <body class="font-body" style="background:#F6F6F3; color:#0C0C0A;">
@@ -145,6 +185,12 @@
       <span class="font-display font-extrabold" style="font-size:12px; letter-spacing:0.14em; text-transform:uppercase; color:#0C0C0A;">Moyrith</span>
       <nav style="display:flex; align-items:center; gap:20px;">
 
+        <!-- The Toggle Button -->
+        <a href="personal.html" class="mode-toggle font-body" id="modeToggleBtn">
+          <span class="mode-indicator"></span>
+          Human Mode
+        </a>
+        
         <!-- Résumé -->
         <a href="/Mohamed_Younis_Resume.pdf" target="_blank" rel="noopener" class="social-link font-body" style="font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:#0C0C0A;">Résumé</a>
 
@@ -423,6 +469,23 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
+      // Seamless Page Transition Logic
+      const modeToggleBtn = document.getElementById('modeToggleBtn');
+      if (modeToggleBtn) {
+        modeToggleBtn.addEventListener('click', function(e) {
+          e.preventDefault(); // Stop immediate navigation
+          const targetUrl = this.getAttribute('href');
+          
+          // Trigger the CSS fade out
+          document.body.classList.add('fade-out');
+          
+          // Wait for the fade out to finish before actually navigating
+          setTimeout(() => {
+            window.location.href = targetUrl;
+          }, 400); // 400ms matches the CSS transition time perfectly
+        });
+      }
+      
       // =========================================================
       // Premium Kinetic Inertial Page Scroll Engine
       // =========================================================
