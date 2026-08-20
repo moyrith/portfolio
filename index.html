@@ -932,6 +932,15 @@
       let loadTimer = null;
       let lastFocused = null;
 
+      // Explicit JS click handler to guarantee tab opening via dynamic URLs
+      openBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const url = openBtn.href;
+        if (url && url !== '#' && !url.endsWith('#')) {
+          window.open(url, '_blank', 'noopener,noreferrer');
+        }
+      });
+
       const showFallback = (url) => {
         statusText.textContent = "This site can't be embedded here — open it directly instead.";
         fallbackBtn.href = url;
