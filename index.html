@@ -4,102 +4,31 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Mohamed Younis — Moyrith</title>
-  
-  <!-- The Liquid Metal Design System uses Inter for the primary typeface and a system monospace fallback[cite: 1]. -->
+  <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap" rel="stylesheet" />
-
-  <style>
-    /* ==========================================================================
-       LIQUID METAL DESIGN SYSTEM — CORE TOKENS & RESET
-       ========================================================================== */
-    /* A shadow needs something to fall on: a soft ambient pool lifts the
-       ground just off black so the background reads as sitting above it.[cite: 1] */
-    :root {
-      --ds-bg-core: #000;
-      --ds-bg-ambient: radial-gradient(46vmax 32vmax at 50% 47%, #191b21 0%, #0e0f13 34%, #050506 62%, #000 88%) #000;
-      --ds-bg-surface: #0b0b0b;
-      --ds-bg-dock: rgba(14, 14, 14, 0.86);
-      --ds-bg-item: rgba(21, 21, 20, 0.9);
-      --ds-bg-item-hover: rgba(27, 27, 26, 0.94);
-      --ds-bg-plate: #0b0c0e;
-      --ds-bg-plate-hot: #08090a;
-      --ds-bg-plate-press: #070809;
-      
-      --ds-border-dock: #292929;
-      --ds-border-item-hover: #41413e;
-      --ds-border-rule: #2a2a28;
-      
-      --ds-text-primary: #e9e9e5;
-      --ds-text-secondary: #ecece8;
-      --ds-text-tertiary: #858580;
-      --ds-text-meta: #62625e;
-      --ds-text-muted: #60605c;
-      
-      --ds-shadow-dock: 0 12px 34px rgba(0, 0, 0, 0.48), inset 0 1px rgba(255, 255, 255, 0.035);
-      --ds-shadow-item: 0 7px 16px rgba(0, 0, 0, 0.26);
-      
-      --ds-font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
-      --ds-font-mono: "ThreeUI Fragment Mono", ui-monospace, monospace;
-      
-      --ds-focus-ring: calc(4 * 1px) solid rgba(255,255,255,.55);
-      --ds-focus-offset: calc(10 * 1px);
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['Syne', 'sans-serif'],
+            body: ['Inter', 'sans-serif'],
+          }
+        }
+      }
     }
-
+  </script>
+  <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: auto; height: 100%; }
-    
+    html { scroll-behavior: auto; }
     body {
-      background: transparent;
-      color: var(--ds-text-secondary);
-      font-family: var(--ds-font-sans);
-      font-optical-sizing: auto;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       overflow-x: hidden;
-      min-height: 100%;
-      position: relative;
-      isolation: isolate;
     }
 
-    /* Container for the article-headings-component subtle grain texture overlay[cite: 1] */
-    body::after {
-      position: fixed;
-      inset: 0;
-      z-index: -1;
-      pointer-events: none;
-      content: "";
-      opacity: 0.12;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.16'/%3E%3C/svg%3E");
-      mix-blend-mode: soft-light;
-    }
-
-    /* ==========================================================================
-       LIQUID METAL CANVAS BACKGROUND (FULL PAGE LAYERED EFFECT)
-       ========================================================================== */
-    #liquid-bg-layer {
-      position: fixed;
-      inset: 0;
-      z-index: -2;
-      background: var(--ds-bg-ambient);
-      pointer-events: none;
-      overflow: hidden;
-    }
-    
-    #liquid-bg-layer canvas#fx {
-      position: absolute; 
-      inset: 0; 
-      width: 100%; 
-      height: 100%; 
-      display: block;
-      opacity: 0.35; /* Blended into the ambient pool to maintain text readability */
-      mix-blend-mode: screen;
-    }
-
-    /* ==========================================================================
-       ANIMATIONS
-       ========================================================================== */
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(18px); }
       to   { opacity: 1; transform: translateY(0);    }
@@ -113,302 +42,117 @@
       .a1,.a2,.a3,.a4 { animation: none; }
     }
 
-    a { text-decoration: none; color: inherit; }
-    button { font-family: inherit; }
-
-    /* Focus rings mapped to the exact component style[cite: 1] */
-    a:focus-visible, button:focus-visible {
-      outline: var(--ds-focus-ring);
-      outline-offset: var(--ds-focus-offset);
-      border-radius: 4px;
+    a { text-decoration: none; }
+    .proj-link:hover .proj-name { opacity: 0.5; }
+    .proj-name { transition: opacity 0.2s ease; }
+    .social-link { transition: opacity 0.2s ease; }
+    .social-link:hover { opacity: 0.4; }
+    .footer-link { transition: opacity 0.2s ease; }
+    .footer-link:hover { opacity: 0.5; }
+    .verify-link {
+      color:#8A8A84;
+      text-decoration:underline;
+      text-underline-offset:3px;
+      text-decoration-color:#C8C8C2;
+      transition: text-decoration-color 0.2s ease, color 0.2s ease;
     }
+    .verify-link:hover { color:#4E4E48; text-decoration-color:#4E4E48; }
+
+    /* ── Project Preview Modal ── */
+    .preview-overlay {
+      position: fixed; inset: 0; z-index: 100;
+      background: rgba(12,12,10,0.55);
+      backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+      display: flex; align-items: center; justify-content: center;
+      padding: 24px;
+      opacity: 0; visibility: hidden;
+      transition: opacity 0.3s cubic-bezier(0.16,1,0.3,1), visibility 0s linear 0.3s;
+    }
+    .preview-overlay.is-open {
+      opacity: 1; visibility: visible;
+      transition: opacity 0.3s cubic-bezier(0.16,1,0.3,1), visibility 0s linear 0s;
+    }
+    .preview-dialog {
+      width: 100%; max-width: 1040px; height: 88vh; max-height: 820px;
+      background: #FAFAF8;
+      border-radius: 16px;
+      border: 1px solid #E2E2DE;
+      box-shadow: 0 30px 80px rgba(12,12,10,0.35);
+      display: flex; flex-direction: column;
+      overflow: hidden;
+      transform: translateY(24px) scale(0.98);
+      transition: transform 0.35s cubic-bezier(0.16,1,0.3,1);
+    }
+    .preview-overlay.is-open .preview-dialog {
+      transform: translateY(0) scale(1);
+    }
+    .preview-topbar {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 12px; padding: 12px 16px;
+      border-bottom: 1px solid #E2E2DE;
+      background: #FAFAF8;
+      flex-shrink: 0;
+    }
+    .preview-topbar-left { display: flex; align-items: center; gap: 10px; min-width: 0; }
+    .preview-dots { display: flex; gap: 6px; flex-shrink: 0; }
+    .preview-dots span { width: 9px; height: 9px; border-radius: 50%; background: #E2E2DE; }
+    .preview-url {
+      font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 300;
+      color: #8A8A84; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .preview-topbar-right { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+    .preview-btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 36px; height: 36px; border-radius: 8px;
+      color: #4E4E48; background: transparent; border: none; cursor: pointer;
+      transition: background 0.15s ease, color 0.15s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .preview-btn:hover { background: #EFEFEA; color: #0C0C0A; }
+    .preview-body { position: relative; flex: 1; min-height: 0; background: #FFFFFF; }
+    .preview-iframe {
+      width: 100%; height: 100%; border: 0; display: block;
+      opacity: 0; transition: opacity 0.4s ease;
+    }
+    .preview-iframe.is-loaded { opacity: 1; }
+    .preview-status {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 14px; text-align: center; padding: 32px;
+      background: #FFFFFF;
+      opacity: 1; transition: opacity 0.3s ease;
+    }
+    .preview-status.is-hidden { opacity: 0; pointer-events: none; }
+    .preview-spinner {
+      width: 26px; height: 26px; border-radius: 50%;
+      border: 2px solid #E2E2DE; border-top-color: #0C0C0A;
+      animation: previewSpin 0.8s linear infinite;
+    }
+    @keyframes previewSpin { to { transform: rotate(360deg); } }
+    .preview-status p {
+      font-family: 'Inter', sans-serif; font-size: 12px; color: #8A8A84;
+      max-width: 320px; line-height: 1.6;
+    }
+    .preview-status .preview-fallback-btn {
+      margin-top: 4px; display: inline-flex; align-items: center; gap: 6px;
+      font-family: 'Inter', sans-serif; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+      color: #0C0C0A; border: 1px solid #0C0C0A; border-radius: 999px;
+      padding: 10px 18px; background: transparent; cursor: pointer;
+      transition: background 0.15s ease, color 0.15s ease;
+      -webkit-tap-highlight-color: transparent;
+      min-height: 44px;
+    }
+    .preview-status .preview-fallback-btn:hover { background: #0C0C0A; color: #FAFAF8; }
+    body.preview-locked { overflow: hidden; }
 
     /* Custom Thin Scrollbar */
     ::-webkit-scrollbar { width: 5px; height: 5px; }
     ::-webkit-scrollbar-track { background: transparent; }
     ::-webkit-scrollbar-thumb { background: #4E4E48; border-radius: 8px; }
-    ::-webkit-scrollbar-thumb:hover { background: var(--ds-text-primary); }
+    ::-webkit-scrollbar-thumb:hover { background: #0C0C0A; }
     * { scrollbar-width: thin; scrollbar-color: #4E4E48 transparent; }
 
-    /* ==========================================================================
-       ANIMATED TOP DOCK COMPONENT (HEADER)
-       ========================================================================== */
-    /* The animated-top-dock-component is an isolated floating pill[cite: 1] */
-    .site-header {
-      position: fixed;
-      top: clamp(24px, 5cqw, 46px);
-      left: 50%;
-      z-index: 50;
-      transform: translateX(-50%);
-      isolation: isolate;
-      width: max-content;
-      pointer-events: none; /* Let clicks pass through empty areas */
-    }
-    
-    .header-inner {
-      display: flex;
-      align-items: center;
-      gap: 3px;
-      height: 38px;
-      padding: 4px;
-      border: 1px solid var(--ds-border-dock);
-      border-radius: 11px;
-      background: var(--ds-bg-dock);
-      box-shadow: var(--ds-shadow-dock);
-      backdrop-filter: blur(18px) saturate(75%);
-      pointer-events: auto;
-    }
-
-    .header-logo {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      height: 28px;
-      padding: 0 12px;
-      border-radius: 7px;
-      color: var(--ds-text-primary);
-      font: 600 12px/1 var(--ds-font-sans);
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      background: var(--ds-bg-item);
-      border: 1px solid transparent;
-      transition: color 0.15s, border-color 0.18s, background 0.18s, box-shadow 0.18s;
-      white-space: nowrap;
-      backdrop-filter: blur(14px) saturate(70%);
-    }
-
-    .header-nav {
-      display: flex;
-      align-items: center;
-      gap: 3px;
-    }
-
-    /* Style based on animated-top-dock__item[cite: 1] */
-    .social-link {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      height: 28px;
-      padding: 0 10px;
-      border-radius: 7px;
-      color: var(--ds-text-tertiary);
-      background: transparent;
-      border: 1px solid transparent;
-      font: 400 10px/1 var(--ds-font-mono);
-      letter-spacing: 0.1em;
-      white-space: nowrap;
-      transition: color 0.15s, border-color 0.18s, background 0.18s, box-shadow 0.18s;
-      cursor: pointer;
-      -webkit-tap-highlight-color: transparent;
-    }
-    
-    .social-link:hover, .social-link:focus-visible {
-      z-index: 7;
-      color: var(--ds-text-primary);
-      border-color: var(--ds-border-item-hover);
-      background: var(--ds-bg-item-hover);
-      box-shadow: var(--ds-shadow-item);
-    }
-
-    .nav-icon { width: 36px; padding: 0; }
-    .nav-icon svg { 
-      opacity: 0.62; 
-      transition: opacity 0.16s; 
-      width: 14px; height: 14px;
-      fill: currentColor;
-    }
-    .social-link:hover svg, .social-link:focus-visible svg { opacity: 1; }
-
-    /* ==========================================================================
-       MAIN LAYOUT & ARTICLE HEADINGS COMPONENT
-       ========================================================================== */
-    .main-wrap {
-      position: relative;
-      z-index: 10;
-      max-width: 56rem;
-      margin: 0 auto;
-      padding: 120px 16px 0;
-      padding-left: max(16px, env(safe-area-inset-left));
-      padding-right: max(16px, env(safe-area-inset-right));
-      isolation: isolate;
-    }
-    @media (min-width: 640px) { .main-wrap { padding-left: 24px; padding-right: 24px; } }
-    @media (min-width: 768px) { .main-wrap { padding-left: 40px; padding-right: 40px; } }
-
-    /* ── Hero ── */
-    .hero {
-      padding-top: 48px;
-      padding-bottom: 74px;
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    
-    .hero-label {
-      font: 400 10px/1 var(--ds-font-mono);
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--ds-text-meta);
-      margin-bottom: 24px;
-    }
-    
-    .hero-title {
-      font-family: var(--ds-font-sans);
-      font-size: clamp(42px, 11vw, 96px);
-      font-weight: 800;
-      line-height: 0.93;
-      letter-spacing: -0.04em;
-      color: var(--ds-text-primary);
-      margin-bottom: 32px;
-      text-shadow: 0 4px 24px rgba(0,0,0,0.8);
-    }
-    
-    .hero-sub {
-      font-weight: 400;
-      font-size: 0.68em;
-      color: var(--ds-text-tertiary);
-      display: block;
-      margin-top: 8px;
-    }
-    
-    .hero-desc {
-      font-size: 15px;
-      font-weight: 300;
-      line-height: 1.7;
-      max-width: 480px;
-      color: var(--ds-text-secondary);
-      text-shadow: 0 2px 12px rgba(0,0,0,0.9);
-    }
-
-    /* ── Section common mapped to article-headings-component[cite: 1] ── */
-    .section { 
-      padding-bottom: clamp(56px, 10cqw, 86px); 
-    }
-    
-    .section-label-row {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: clamp(14px, 2.6cqw, 30px);
-    }
-    
-    .section-label {
-      color: var(--ds-text-meta);
-      font: 400 clamp(8px, 0.85cqw, 10px) / 1 var(--ds-font-mono);
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      white-space: nowrap;
-    }
-    
-    .section-rule {
-      flex: 1;
-      height: 1px;
-      background: var(--ds-border-rule);
-    }
-
-    /* ── Project / Experience rows (Mapped to article-headings-component__entry)[cite: 1] ── */
-    .proj-link, .exp-row, .edu-row, .edu-certs {
-      display: block;
-      padding: clamp(18px, 4cqw, 24px) 0;
-      border-top: 1px solid var(--ds-border-rule);
-      border-bottom: none;
-      -webkit-tap-highlight-color: transparent;
-      transition: background 0.2s ease, padding-left 0.2s ease;
-    }
-    
-    .proj-link:hover {
-      background: rgba(255,255,255,0.02);
-      padding-left: 12px;
-      border-radius: 8px;
-    }
-    
-    .proj-top, .exp-top {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: 12px;
-      margin-bottom: 12px;
-    }
-    
-    .proj-name, .exp-title {
-      font-family: var(--ds-font-sans);
-      font-size: clamp(18px, 3.2cqw, 24px);
-      font-weight: 600;
-      color: var(--ds-text-primary);
-      letter-spacing: -0.02em;
-      transition: color 0.2s ease;
-    }
-    
-    .proj-link:hover .proj-name {
-      color: #fff;
-    }
-    
-    .proj-meta, .exp-date {
-      color: var(--ds-text-muted);
-      font: 400 clamp(8px, 0.85cqw, 10px) / 1.3 var(--ds-font-mono);
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      white-space: nowrap;
-      flex-shrink: 0;
-    }
-    
-    .exp-org {
-      font-size: 14px;
-      color: var(--ds-text-tertiary);
-      font-weight: 400;
-    }
-    
-    .proj-desc, .exp-desc, .cert-line, .skill-value {
-      font-size: 14px;
-      font-weight: 300;
-      line-height: 1.65;
-      color: var(--ds-text-secondary);
-      opacity: 0.85;
-    }
-
-    .edu-row {
-      border-top: 1px solid var(--ds-border-rule);
-      align-items: flex-start;
-    }
-    .edu-row > div > p:first-child {
-      font-size: clamp(18px, 3.2cqw, 24px);
-      font-weight: 600;
-      color: var(--ds-text-primary);
-      letter-spacing: -0.02em;
-      margin-bottom: 8px;
-    }
-    .edu-certs { gap: 12px; }
-
-    .verify-link {
-      color: var(--ds-text-tertiary);
-      text-decoration: underline;
-      text-underline-offset: 3px;
-      text-decoration-color: var(--ds-border-rule);
-      transition: text-decoration-color 0.2s ease, color 0.2s ease;
-    }
-    .verify-link:hover { color: var(--ds-text-primary); text-decoration-color: var(--ds-text-primary); }
-
-    /* ── Skills ── */
-    .skills-list { display: flex; flex-direction: column; gap: 0; }
-    .skill-row {
-      display: flex;
-      gap: 12px;
-      align-items: baseline;
-      flex-wrap: wrap;
-      padding: clamp(14px, 3cqw, 20px) 0;
-      border-top: 1px solid var(--ds-border-rule);
-    }
-    .skill-label {
-      color: var(--ds-text-muted);
-      font: 400 clamp(8px, 0.85cqw, 10px) / 1.3 var(--ds-font-mono);
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      min-width: 120px;
-      flex-shrink: 0;
-    }
-
-    /* ── Services Expand/Collapse (Mapped to Scalability Bricks / Mechanical Keyboard)[cite: 1] ── */
+    /* Services Expand/Collapse */
     .services-wrapper {
       display: grid;
       grid-template-rows: 0fr;
@@ -431,47 +175,23 @@
       transition-delay: 0.1s;
     }
     @media (min-width: 640px) {
-      .services-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; padding-top: 24px; }
+      .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+        padding-top: 24px;
+      }
     }
-    
     .service-card {
-      border: 1px solid var(--ds-border-dock);
-      padding: 24px;
-      background: rgba(8, 9, 10, 0.65);
-      border-radius: 8px;
-      transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+      border: 1px solid #E2E2DE;
+      padding: 20px;
+      background: transparent;
+      transition: border-color 0.2s ease, transform 0.2s ease;
       -webkit-tap-highlight-color: transparent;
-      backdrop-filter: blur(12px);
     }
-    .service-card:hover { 
-      border-color: var(--ds-border-item-hover); 
-      background: var(--ds-bg-item-hover);
-      box-shadow: var(--ds-shadow-item);
+    .service-card:hover { border-color: #0C0C0A; }
+    @media (min-width: 640px) {
+      .service-card { padding: 24px; }
     }
-    
-    .service-card h3 {
-      font-size: 18px;
-      font-weight: 600;
-      color: var(--ds-text-primary);
-      letter-spacing: -0.02em;
-    }
-    
-    .service-card p {
-      font-size: 14px;
-      font-weight: 300;
-      line-height: 1.65;
-      color: var(--ds-text-secondary);
-      opacity: 0.85;
-      margin-bottom: 14px;
-    }
-    
-    .service-card span {
-      color: var(--ds-text-muted);
-      font: 400 9px / 1.3 var(--ds-font-mono);
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-    }
-
     .services-header {
       width: 100%;
       display: flex;
@@ -480,38 +200,354 @@
       cursor: pointer;
       background: none;
       border: none;
-      padding: 12px 0;
+      padding: 8px 0;
       min-height: 44px;
       -webkit-tap-highlight-color: transparent;
-      color: var(--ds-text-meta);
-      border-top: 1px solid var(--ds-border-rule);
     }
-    
-    .services-header:hover .toggle-line { background: var(--ds-text-tertiary); }
-    
+    .services-header:hover .toggle-line { background: #0C0C0A; }
     .toggle-icon {
       transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
       flex-shrink: 0;
-      stroke: var(--ds-text-primary);
     }
     .is-expanded-icon { transform: rotate(180deg); }
     .toggle-line {
       flex: 1;
       height: 1px;
-      background: var(--ds-border-rule);
+      background: #E2E2DE;
       transition: background 0.2s ease;
+    }
+
+    /* ── Header ── */
+    .site-header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 50;
+      background: #F6F6F3;
+      border-bottom: 1px solid #E2E2DE;
+      padding-left: env(safe-area-inset-left);
+      padding-right: env(safe-area-inset-right);
+    }
+    .header-inner {
+      max-width: 48rem;
+      margin: 0 auto;
+      padding: 0 16px;
+      height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    @media (min-width: 640px) {
+      .header-inner { padding: 0 24px; }
+    }
+    @media (min-width: 768px) {
+      .header-inner { padding: 0 40px; }
+    }
+    .header-logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #0C0C0A;
+      flex-shrink: 0;
+    }
+    @media (min-width: 640px) {
+      .header-logo { font-size: 12px; }
+    }
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+    @media (min-width: 400px) {
+      .header-nav { gap: 14px; }
+    }
+    @media (min-width: 640px) {
+      .header-nav { gap: 20px; }
+    }
+    .nav-resume {
+      font-family: 'Inter', sans-serif;
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #0C0C0A;
+      padding: 8px 0;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      -webkit-tap-highlight-color: transparent;
+    }
+    @media (min-width: 640px) {
+      .nav-resume { font-size: 11px; letter-spacing: 0.14em; }
+    }
+    .nav-icon {
+      color: #0C0C0A;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      -webkit-tap-highlight-color: transparent;
+    }
+    @media (min-width: 640px) {
+      .nav-icon { width: auto; height: auto; }
+    }
+
+    /* ── Main layout ── */
+    .main-wrap {
+      max-width: 48rem;
+      margin: 0 auto;
+      padding: 52px 16px 0;
+      padding-left: max(16px, env(safe-area-inset-left));
+      padding-right: max(16px, env(safe-area-inset-right));
+    }
+    @media (min-width: 640px) {
+      .main-wrap { padding-left: 24px; padding-right: 24px; }
+    }
+    @media (min-width: 768px) {
+      .main-wrap { padding-left: 40px; padding-right: 40px; }
+    }
+
+    /* ── Hero ── */
+    .hero {
+      padding-top: 48px;
+      padding-bottom: 56px;
+    }
+    @media (min-width: 640px) {
+      .hero { padding-top: 64px; padding-bottom: 72px; }
+    }
+    @media (min-width: 768px) {
+      .hero { padding-top: 80px; padding-bottom: 88px; }
+    }
+    .hero-label {
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #8A8A84;
+      margin-bottom: 18px;
+    }
+    @media (min-width: 640px) {
+      .hero-label { font-size: 11px; letter-spacing: 0.2em; margin-bottom: 24px; }
+    }
+    .hero-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(42px, 11vw, 96px);
+      font-weight: 800;
+      line-height: 0.93;
+      letter-spacing: -0.02em;
+      color: #0C0C0A;
+      margin-bottom: 24px;
+    }
+    @media (min-width: 640px) {
+      .hero-title { margin-bottom: 32px; }
+    }
+    .hero-sub {
+      font-weight: 400;
+      font-size: 0.68em;
+      color: #9A9A94;
+    }
+    .hero-desc {
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 1.7;
+      max-width: 420px;
+      color: #4E4E48;
+    }
+    @media (min-width: 640px) {
+      .hero-desc { font-size: 15px; }
+    }
+
+    /* ── Section common ── */
+    .section { padding-bottom: 56px; }
+    @media (min-width: 640px) {
+      .section { padding-bottom: 72px; }
+    }
+    @media (min-width: 768px) {
+      .section { padding-bottom: 80px; }
+    }
+    .section-label-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    @media (min-width: 640px) {
+      .section-label-row { gap: 16px; margin-bottom: 32px; }
+    }
+    .section-label {
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #8A8A84;
+      white-space: nowrap;
+    }
+    @media (min-width: 640px) {
+      .section-label { letter-spacing: 0.2em; }
+    }
+    .section-rule {
+      flex: 1;
+      height: 1px;
+      background: #E2E2DE;
+    }
+
+    /* ── Project rows ── */
+    .proj-link {
+      display: block;
+      padding: 18px 0;
+      border-bottom: 1px solid #E2E2DE;
+      -webkit-tap-highlight-color: transparent;
+    }
+    @media (min-width: 640px) {
+      .proj-link { padding: 20px 0; }
+    }
+    .proj-top {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+    .proj-name {
+      font-family: 'Syne', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: #0C0C0A;
+    }
+    @media (min-width: 640px) {
+      .proj-name { font-size: 17px; }
+    }
+    .proj-meta {
+      font-size: 9px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #8A8A84;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    @media (min-width: 640px) {
+      .proj-meta { font-size: 10px; letter-spacing: 0.15em; }
+    }
+    .proj-desc {
+      font-size: 13px;
+      font-weight: 300;
+      line-height: 1.65;
+      color: #4E4E48;
+    }
+
+    /* ── Experience / Education rows ── */
+    .exp-row {
+      padding: 18px 0;
+      border-bottom: 1px solid #E2E2DE;
+    }
+    @media (min-width: 640px) {
+      .exp-row { padding: 20px 0; }
+    }
+    .exp-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+    .exp-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: #0C0C0A;
+    }
+    @media (min-width: 640px) {
+      .exp-title { font-size: 15px; }
+    }
+    .exp-org {
+      font-size: 13px;
+      color: #8A8A84;
+    }
+    .exp-date {
+      font-size: 11px;
+      color: #8A8A84;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .exp-desc {
+      font-size: 13px;
+      font-weight: 300;
+      line-height: 1.65;
+      color: #4E4E48;
+    }
+
+    /* ── Skills ── */
+    .skills-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .skill-row {
+      display: flex;
+      gap: 12px;
+      align-items: baseline;
+      flex-wrap: wrap;
+    }
+    @media (min-width: 480px) {
+      .skill-row { gap: 20px; }
+    }
+    .skill-label {
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #8A8A84;
+      min-width: 100px;
+      flex-shrink: 0;
+    }
+    @media (min-width: 480px) {
+      .skill-label { min-width: 120px; letter-spacing: 0.15em; }
+    }
+    .skill-value {
+      font-size: 13px;
+      font-weight: 300;
+      color: #4E4E48;
+      line-height: 1.55;
+    }
+
+    /* ── Education certs ── */
+    .edu-row {
+      padding: 18px 0;
+      border-bottom: 1px solid #E2E2DE;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    @media (min-width: 640px) {
+      .edu-row { padding: 20px 0; }
+    }
+    .edu-certs {
+      padding: 18px 0;
+      border-bottom: 1px solid #E2E2DE;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    @media (min-width: 640px) {
+      .edu-certs { padding: 20px 0; gap: 8px; }
+    }
+    .cert-line {
+      font-size: 13px;
+      font-weight: 300;
+      color: #4E4E48;
+      line-height: 1.55;
     }
 
     /* ── Footer ── */
     .site-footer {
-      border-top: 1px solid var(--ds-border-rule);
+      border-top: 1px solid #E2E2DE;
       padding-left: env(safe-area-inset-left);
       padding-right: env(safe-area-inset-right);
       padding-bottom: env(safe-area-inset-bottom);
-      background: #000;
     }
     .footer-inner {
-      max-width: 56rem;
+      max-width: 48rem;
       margin: 0 auto;
       padding: 24px 16px;
       display: flex;
@@ -520,183 +556,79 @@
       flex-wrap: wrap;
       gap: 10px;
     }
-    @media (min-width: 640px) { .footer-inner { padding: 28px 24px; gap: 12px; } }
-    @media (min-width: 768px) { .footer-inner { padding: 28px 40px; } }
-    
-    .footer-copy, .footer-geo {
-      font: 400 10px / 1.3 var(--ds-font-mono);
-      letter-spacing: 0.06em;
-      color: var(--ds-text-muted);
+    @media (min-width: 640px) {
+      .footer-inner { padding: 28px 24px; gap: 12px; }
     }
-    .footer-link { transition: color 0.2s ease; }
-    .footer-link:hover { color: var(--ds-text-primary) !important; }
+    @media (min-width: 768px) {
+      .footer-inner { padding: 28px 40px; }
+    }
+    .footer-copy {
+      font-size: 11px;
+      color: #8A8A84;
+    }
+    .footer-geo {
+      font-size: 11px;
+      color: #C0C0BA;
+    }
 
-    /* ==========================================================================
-       PROJECT PREVIEW MODAL (GLASSMORPHISM / LIQUID UI)
-       ========================================================================== */
-    .preview-overlay {
-      position: fixed; inset: 0; z-index: 100;
-      background: rgba(5,5,6,0.85);
-      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-      display: flex; align-items: center; justify-content: center;
-      padding: 24px;
-      opacity: 0; visibility: hidden;
-      transition: opacity 0.3s cubic-bezier(0.16,1,0.3,1), visibility 0s linear 0.3s;
-    }
-    .preview-overlay.is-open {
-      opacity: 1; visibility: visible;
-      transition: opacity 0.3s cubic-bezier(0.16,1,0.3,1), visibility 0s linear 0s;
-    }
-    
-    .preview-dialog {
-      width: 100%; max-width: 1040px; height: 88vh; max-height: 820px;
-      background: var(--ds-bg-dock);
-      border-radius: 16px;
-      border: 1px solid var(--ds-border-dock);
-      box-shadow: 0 30px 80px rgba(0,0,0,0.85), inset 0 1px rgba(255, 255, 255, 0.035);
-      display: flex; flex-direction: column;
-      overflow: hidden;
-      transform: translateY(24px) scale(0.98);
-      transition: transform 0.35s cubic-bezier(0.16,1,0.3,1);
-      backdrop-filter: blur(18px) saturate(75%);
-    }
-    .preview-overlay.is-open .preview-dialog { transform: translateY(0) scale(1); }
-    
-    .preview-topbar {
-      display: flex; align-items: center; justify-content: space-between;
-      gap: 12px; padding: 12px 16px;
-      border-bottom: 1px solid var(--ds-border-dock);
-      background: rgba(10,10,10,0.5);
-      flex-shrink: 0;
-    }
-    .preview-topbar-left { display: flex; align-items: center; gap: 10px; min-width: 0; }
-    .preview-dots { display: flex; gap: 6px; flex-shrink: 0; }
-    .preview-dots span { width: 9px; height: 9px; border-radius: 50%; background: var(--ds-border-dock); }
-    
-    .preview-url {
-      font: 400 11px/1 var(--ds-font-mono);
-      letter-spacing: 0.06em;
-      color: var(--ds-text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-    }
-    .preview-topbar-right { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
-    
-    .preview-btn {
-      display: inline-flex; align-items: center; justify-content: center;
-      width: 32px; height: 32px; border-radius: 8px;
-      color: var(--ds-text-tertiary); background: transparent; border: 1px solid transparent; cursor: pointer;
-      transition: color 0.15s, border-color 0.18s, background 0.18s, box-shadow 0.18s;
-      -webkit-tap-highlight-color: transparent;
-    }
-    .preview-btn:hover { 
-      color: var(--ds-text-primary);
-      border-color: var(--ds-border-item-hover);
-      background: var(--ds-bg-item-hover);
-      box-shadow: var(--ds-shadow-item);
-    }
-    
-    .preview-body { position: relative; flex: 1; min-height: 0; background: #000; }
-    .preview-iframe {
-      width: 100%; height: 100%; border: 0; display: block;
-      opacity: 0; transition: opacity 0.4s ease;
-      background: #000;
-    }
-    .preview-iframe.is-loaded { opacity: 1; }
-    
-    .preview-status {
-      position: absolute; inset: 0;
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      gap: 14px; text-align: center; padding: 32px;
-      background: var(--ds-bg-surface);
-      opacity: 1; transition: opacity 0.3s ease;
-    }
-    .preview-status.is-hidden { opacity: 0; pointer-events: none; }
-    
-    .preview-spinner {
-      width: 26px; height: 26px; border-radius: 50%;
-      border: 2px solid var(--ds-border-dock); border-top-color: var(--ds-text-primary);
-      animation: previewSpin 0.8s linear infinite;
-    }
-    @keyframes previewSpin { to { transform: rotate(360deg); } }
-    
-    .preview-status p {
-      font: 400 11px/1.6 var(--ds-font-mono); color: var(--ds-text-muted);
-      max-width: 320px;
-    }
-    
-    .preview-status .preview-fallback-btn {
-      margin-top: 12px; display: inline-flex; align-items: center; gap: 6px;
-      font: 400 10px/1 var(--ds-font-mono); letter-spacing: 0.1em; text-transform: uppercase;
-      color: var(--ds-text-primary); border: 1px solid var(--ds-border-dock); border-radius: 8px;
-      padding: 10px 18px; background: var(--ds-bg-item); cursor: pointer;
-      transition: color 0.15s, border-color 0.18s, background 0.18s, box-shadow 0.18s;
-      -webkit-tap-highlight-color: transparent;
-      min-height: 36px;
-    }
-    .preview-status .preview-fallback-btn:hover { 
-      border-color: var(--ds-border-item-hover);
-      background: var(--ds-bg-item-hover);
-      box-shadow: var(--ds-shadow-item);
-    }
-    
-    body.preview-locked { overflow: hidden; }
-
-    /* Mobile-specific refinements */
+    /* ── Mobile-specific refinements ── */
     @media (max-width: 639px) {
-      .header-logo { display: none; }
       .preview-overlay { padding: 0; }
       .preview-dialog {
-        max-width: 100%; height: 100dvh; max-height: none;
-        border-radius: 0; border: none;
+        max-width: 100%;
+        height: 100dvh;
+        max-height: none;
+        border-radius: 0;
+        border: none;
       }
       .preview-topbar { padding: 10px 12px; }
-      .proj-top { flex-wrap: wrap; align-items: flex-start; gap: 4px; }
+      .preview-url { font-size: 11px; }
+      .proj-top {
+        flex-wrap: wrap;
+        align-items: flex-start;
+      }
     }
 
+    /* Touch: remove hover opacity traps on coarse pointers */
     @media (hover: none) {
-      .social-link:hover { background: transparent; box-shadow: none; border-color: transparent; color: var(--ds-text-tertiary); }
-      .proj-link:hover { background: transparent; padding-left: 0; }
-      .service-card:hover { border-color: var(--ds-border-dock); background: var(--ds-bg-plate-hot); box-shadow: none; }
+      .proj-link:hover .proj-name { opacity: 1; }
+      .social-link:hover { opacity: 1; }
+      .footer-link:hover { opacity: 1; }
+      .service-card:hover { border-color: #E2E2DE; }
+      .services-header:hover .toggle-line { background: #E2E2DE; }
     }
   </style>
 </head>
-<body class="font-body">
+<body class="font-body" style="background:#F6F6F3; color:#0C0C0A;">
 
-  <!-- ── LIQUID METAL FULL PAGE LAYER (WEBGL RENDERING) ── -->
-  <!-- Utilizes the spectral dispersion field as a background page layer instead of an isolated component pill[cite: 1] -->
-  <div id="liquid-bg-layer" aria-hidden="true">
-    <canvas id="fx"></canvas>
-  </div>
-
-  <!-- ── HEADER (ANIMATED TOP DOCK COMPONENT) ── -->
+  <!-- ── HEADER ── -->
   <header class="site-header">
     <div class="header-inner">
       <span class="header-logo">Moyrith</span>
       <nav class="header-nav" aria-label="Primary">
 
-        <a href="/Mohamed_Younis_Resume.pdf" target="_blank" rel="noopener" class="social-link nav-resume" aria-label="Résumé">
-          Résumé
-        </a>
+        <a href="/Mohamed_Younis_Resume.pdf" target="_blank" rel="noopener" class="social-link nav-resume">Résumé</a>
 
         <a href="mailto:hi@moyrith.me" aria-label="Email" class="social-link nav-icon">
-          <svg viewBox="0 0 24 24">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
             <path d="M1.5 4.5A2.25 2.25 0 013.75 2.25h16.5A2.25 2.25 0 0122.5 4.5v15a2.25 2.25 0 01-2.25 2.25H3.75A2.25 2.25 0 011.5 19.5v-15zm2.121-.75a.75.75 0 00-.621.375l8.457 6.767a1.5 1.5 0 001.086 0L21 4.125a.75.75 0 00-.621-.375H3.621zM21 6.03l-7.686 6.15a3 3 0 01-3.628 0L2 6.03V19.5c0 .414.336.75.75.75h16.5a.75.75 0 00.75-.75V6.03z"/>
           </svg>
         </a>
 
         <a href="https://x.com/moyrith" target="_blank" rel="noopener" aria-label="X" class="social-link nav-icon">
-          <svg viewBox="0 0 24 24">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
             <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
           </svg>
         </a>
 
         <a href="https://linkedin.com/in/moyrith" target="_blank" rel="noopener" aria-label="LinkedIn" class="social-link nav-icon">
-          <svg viewBox="0 0 24 24">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
             <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
           </svg>
         </a>
 
         <a href="https://github.com/moyrith" target="_blank" rel="noopener" aria-label="GitHub" class="social-link nav-icon">
-          <svg viewBox="0 0 24 24">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
             <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
           </svg>
         </a>
@@ -710,7 +642,7 @@
 
     <!-- HERO -->
     <section class="hero">
-      <p class="a1 hero-label">
+      <p class="a1 font-body hero-label">
         Mohamed Younis · Amman, Jordan
       </p>
       <h1 class="a2 hero-title">
@@ -718,7 +650,7 @@
         Developer<br>
         <span class="hero-sub">&amp; Founder</span>
       </h1>
-      <p class="a3 hero-desc">
+      <p class="a3 font-body hero-desc">
         Building SaaS products and automation systems solo —
         from idea to live users and revenue.
         Open to remote and on-site roles in Jordan, the Gulf, and globally.
@@ -728,16 +660,16 @@
     <!-- PROJECTS -->
     <section class="section">
       <div class="section-label-row">
-        <span class="section-label">Projects</span>
+        <span class="font-body section-label">Projects</span>
         <div class="section-rule"></div>
       </div>
 
       <a href="https://germarksy.online" target="_blank" rel="noopener" class="proj-link" data-preview="https://germarksy.online">
         <div class="proj-top">
           <span class="proj-name">Marksy</span>
-          <span class="proj-meta">SaaS · 2025-2026</span>
+          <span class="font-body proj-meta">SaaS · 2025-2026</span>
         </div>
-        <p class="proj-desc">
+        <p class="font-body proj-desc">
           Bookmarks Auto-Categorizer &amp; Organizer. MVP in bolt.new, migrated to Next.js via emergent.sh. Graduation project — A−.
         </p>
       </a>
@@ -745,9 +677,9 @@
       <a href="https://tabsy.moyrith.me" target="_blank" rel="noopener" class="proj-link" data-preview="https://tabsy.moyrith.me">
         <div class="proj-top">
           <span class="proj-name">Tabsy</span>
-          <span class="proj-meta">Extension · 2025-2026</span>
+          <span class="font-body proj-meta">Extension · 2025-2026</span>
         </div>
-        <p class="proj-desc">
+        <p class="font-body proj-desc">
           Browser Tabs Manager. Monetized digital product — $4.99 lifetime, available on Whop.
         </p>
       </a>
@@ -755,9 +687,9 @@
       <a href="https://reelsy.moyrith.me" target="_blank" rel="noopener" class="proj-link" data-preview="https://reelsy.moyrith.me">
         <div class="proj-top">
           <span class="proj-name">Reelsy</span>
-          <span class="proj-meta">Extension · 2025-2026</span>
+          <span class="font-body proj-meta">Extension · 2025-2026</span>
         </div>
-        <p class="proj-desc">
+        <p class="font-body proj-desc">
           Instagram Reels Controller. Frame-by-frame stepping, speed control, 4K screenshot capture, auto-scroll, adaptive control bar.
         </p>
       </a>
@@ -765,9 +697,9 @@
       <a href="https://tubesy.moyrith.me" target="_blank" rel="noopener" class="proj-link" data-preview="https://tubesy.moyrith.me">
         <div class="proj-top">
           <span class="proj-name">Tubesy</span>
-          <span class="proj-meta">Automation · 2025</span>
+          <span class="font-body proj-meta">Automation · 2025</span>
         </div>
-        <p class="proj-desc">
+        <p class="font-body proj-desc">
           Bulk YouTube Upload Pipeline. Local n8n workflow (7 nodes). One video uploaded 6× to YouTube in two title/description variants via custom JavaScript. Built with Claude &amp; Gemini guidance for local setup and architecture.
         </p>
       </a>
@@ -777,10 +709,10 @@
     <section class="section">
       <button id="servicesToggleBtn" class="services-header" aria-expanded="false" type="button">
         <div style="display:flex; align-items:center; gap:12px; flex:1; min-width:0;">
-          <span class="section-label" style="margin:0;">Services</span>
+          <span class="font-body" style="font-size:10px; letter-spacing:0.18em; text-transform:uppercase; color:#0C0C0A; font-weight:500; white-space:nowrap;">Services</span>
           <div class="toggle-line"></div>
         </div>
-        <svg id="servicesToggleIcon" class="toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke-width="1.5" style="margin-left:12px;" aria-hidden="true">
+        <svg id="servicesToggleIcon" class="toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0C0C0A" stroke-width="1.5" style="margin-left:12px;" aria-hidden="true">
           <path d="M6 9l6 6 6-6"/>
         </svg>
       </button>
@@ -791,46 +723,46 @@
 
             <div class="service-card">
               <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:12px; gap:8px;">
-                <h3>Landing Pages</h3>
-                <span>01</span>
+                <h3 class="font-display" style="font-size:15px; font-weight:700; color:#0C0C0A;">Landing Pages</h3>
+                <span class="font-body" style="font-size:10px; letter-spacing:0.1em; color:#8A8A84; flex-shrink:0;">01</span>
               </div>
-              <p>
+              <p class="font-body" style="font-size:13px; font-weight:300; line-height:1.65; color:#4E4E48; margin-bottom:14px;">
                 High-conversion web development built for speed and minimalist precision.
               </p>
-              <span>Value: Identity &amp; Conversion</span>
+              <span class="font-body" style="font-size:9px; letter-spacing:0.12em; text-transform:uppercase; color:#8A8A84;">Value: Identity &amp; Conversion</span>
             </div>
 
             <div class="service-card">
               <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:12px; gap:8px;">
-                <h3>SaaS / Web Apps</h3>
-                <span>02</span>
+                <h3 class="font-display" style="font-size:15px; font-weight:700; color:#0C0C0A;">SaaS / Web Apps</h3>
+                <span class="font-body" style="font-size:10px; letter-spacing:0.1em; color:#8A8A84; flex-shrink:0;">02</span>
               </div>
-              <p>
+              <p class="font-body" style="font-size:13px; font-weight:300; line-height:1.65; color:#4E4E48; margin-bottom:14px;">
                 Rapid MVP prototyping, system architecture, and robust client-side deployment.
               </p>
-              <span>Value: Concept to Market</span>
+              <span class="font-body" style="font-size:9px; letter-spacing:0.1em; color:#8A8A84;">Value: Concept to Market</span>
             </div>
 
             <div class="service-card">
               <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:12px; gap:8px;">
-                <h3>Workflow Automation</h3>
-                <span>03</span>
+                <h3 class="font-display" style="font-size:15px; font-weight:700; color:#0C0C0A;">Workflow Automation</h3>
+                <span class="font-body" style="font-size:10px; letter-spacing:0.1em; color:#8A8A84; flex-shrink:0;">03</span>
               </div>
-              <p>
+              <p class="font-body" style="font-size:13px; font-weight:300; line-height:1.65; color:#4E4E48; margin-bottom:14px;">
                 Custom n8n pipelines engineered to eliminate manual hours and scale local operations.
               </p>
-              <span>Value: Operational Scale</span>
+              <span class="font-body" style="font-size:9px; letter-spacing:0.12em; text-transform:uppercase; color:#8A8A84;">Value: Operational Scale</span>
             </div>
 
             <div class="service-card">
               <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:12px; gap:8px;">
-                <h3>Generative Assets</h3>
-                <span>04</span>
+                <h3 class="font-display" style="font-size:15px; font-weight:700; color:#0C0C0A;">Generative Assets</h3>
+                <span class="font-body" style="font-size:10px; letter-spacing:0.1em; color:#8A8A84; flex-shrink:0;">04</span>
               </div>
-              <p>
+              <p class="font-body" style="font-size:13px; font-weight:300; line-height:1.65; color:#4E4E48; margin-bottom:14px;">
                 Bespoke digital media creation utilizing advanced visual models like GPT Image 2.0 and Veo 3.1.
               </p>
-              <span>Value: Next-Gen Visuals</span>
+              <span class="font-body" style="font-size:9px; letter-spacing:0.12em; text-transform:uppercase; color:#8A8A84;">Value: Next-Gen Visuals</span>
             </div>
 
           </div>
@@ -841,7 +773,7 @@
     <!-- EXPERIENCE -->
     <section class="section">
       <div class="section-label-row">
-        <span class="section-label">Experience</span>
+        <span class="font-body section-label">Experience</span>
         <div class="section-rule"></div>
       </div>
 
@@ -849,11 +781,11 @@
         <div class="exp-top">
           <div>
             <span class="exp-title">AI-Native Developer &amp; Founder</span>
-            <span class="exp-org"> · Moyrith</span>
+            <span class="font-body exp-org"> · Moyrith</span>
           </div>
-          <span class="exp-date">Apr 2025 – Now</span>
+          <span class="font-body exp-date">Apr 2025 – Now</span>
         </div>
-        <p class="exp-desc">
+        <p class="font-body exp-desc">
           Ships SaaS products solo. Directs AI agents (emergent.sh, bolt.new, v0.dev, aura.build, omma.build) to generate full codebases and landing pages. Specifies WCAG &amp; OWASP Top 10 before generation, monkey tests the output before deployment.
         </p>
       </div>
@@ -862,11 +794,11 @@
         <div class="exp-top">
           <div>
             <span class="exp-title">QA Intern</span>
-            <span class="exp-org"> · The Hope International</span>
+            <span class="font-body exp-org"> · The Hope International</span>
           </div>
-          <span class="exp-date">Mar – May 2026</span>
+          <span class="font-body exp-date">Mar – May 2026</span>
         </div>
-        <p class="exp-desc">
+        <p class="font-body exp-desc">
           API validation via Postman, network analysis via Fiddler, automated UI testing with Ghost Inspector. Identified a z-index rendering defect on a production portal and authored a fix report. Managed issues across Jira and Trello.
         </p>
       </div>
@@ -875,63 +807,65 @@
     <!-- SKILLS -->
     <section class="section">
       <div class="section-label-row">
-        <span class="section-label">Skills</span>
+        <span class="font-body section-label">Skills</span>
         <div class="section-rule"></div>
       </div>
 
       <div class="skills-list">
+
         <div class="skill-row">
-          <span class="skill-label">Languages</span>
-          <span class="skill-value">HTML5/CSS3 · JavaScript (ES6+) · React · Tailwind CSS · Figma</span>
+          <span class="font-body skill-label">Languages</span>
+          <span class="font-body skill-value">HTML5/CSS3 · JavaScript (ES6+) · React · Tailwind CSS · Figma</span>
         </div>
 
         <div class="skill-row">
-          <span class="skill-label">Frameworks</span>
-          <span class="skill-value">Next.js · TypeScript · Supabase</span>
+          <span class="font-body skill-label">Frameworks</span>
+          <span class="font-body skill-value">Next.js · TypeScript · Supabase</span>
         </div>
 
         <div class="skill-row">
-          <span class="skill-label">AI &amp; Automation</span>
-          <span class="skill-value">n8n · Prompt Engineering · API Orchestration · Agentic Workflows</span>
+          <span class="font-body skill-label">AI &amp; Automation</span>
+          <span class="font-body skill-value">n8n · Prompt Engineering · API Orchestration · Agentic Workflows</span>
         </div>
 
         <div class="skill-row">
-          <span class="skill-label">AI Tools</span>
-          <span class="skill-value">Bolt · Lovable · Anything · v0 · Emergent · Aura.build · Omma.build</span>
+          <span class="font-body skill-label">AI Tools</span>
+          <span class="font-body skill-value">Bolt · Lovable · Anything · v0 · Emergent · Aura.build · Omma.build</span>
         </div>
 
         <div class="skill-row">
-          <span class="skill-label">Deploy</span>
-          <span class="skill-value">Git/GitHub · Vercel · Netlify</span>
+          <span class="font-body skill-label">Deploy</span>
+          <span class="font-body skill-value">Git/GitHub · Vercel · Netlify</span>
         </div>
 
         <div class="skill-row">
-          <span class="skill-label">Spoken</span>
-          <span class="skill-value">Kurdish (native) · Arabic (fluent) · English (fluent)</span>
+          <span class="font-body skill-label">Spoken</span>
+          <span class="font-body skill-value">Kurdish (native) · Arabic (fluent) · English (fluent)</span>
         </div>
+
       </div>
     </section>
 
     <!-- EDUCATION & CERTS -->
     <section class="section">
       <div class="section-label-row">
-        <span class="section-label">Education</span>
+        <span class="font-body section-label">Education</span>
         <div class="section-rule"></div>
       </div>
 
       <div class="edu-row">
         <div>
-          <p>B.Sc. Computer Science</p>
-          <p class="exp-desc" style="font-size: 13px; margin-top: 4px;">Middle East University · Amman, JO · GPA 3.26</p>
+          <p class="font-display" style="font-size:14px; font-weight:700; color:#0C0C0A; margin-bottom:4px;">B.Sc. Computer Science</p>
+          <p class="font-body" style="font-size:13px; font-weight:300; color:#4E4E48;">Middle East University · Amman, JO · GPA 3.26</p>
         </div>
-        <span class="exp-date">Oct 2022 – Jul 2026</span>
+        <span class="font-body exp-date">Oct 2022 – Jul 2026</span>
       </div>
 
       <div class="edu-certs">
-        <p class="cert-line">English for IT 1 <span style="color:var(--ds-text-muted);">· Cisco · May 2026 · <a href="https://www.credly.com/badges/d87d69f5-5211-41b2-afbb-d1709b7a12ab/linked_in_profile" target="_blank" rel="noopener" class="verify-link">verify ↗</a></span></p>
-        <p class="cert-line">Meta Front-End Developer Professional Certificate <span style="color:var(--ds-text-muted);">· Meta · Sep 2024 · <a href="https://coursera.org/share/9e56395bbafe5b7a3d7d84e2700c3da6" target="_blank" rel="noopener" class="verify-link">verify ↗</a></span></p>
-        <p class="cert-line">Prompt Engineering for ChatGPT <span style="color:var(--ds-text-muted);">· Vanderbilt University · Aug 2024 · <a href="https://coursera.org/share/cff76e89b513faaaa365daa2645137c8" target="_blank" rel="noopener" class="verify-link">verify ↗</a></span></p>
-        <p class="cert-line">English Diploma, 6 Levels <span style="color:var(--ds-text-muted);">· JU Gate Academy · 2022 – Dec 2023</span></p>
+        <p class="font-body cert-line">English for IT 1 <span style="color:#8A8A84;">· Cisco · May 2026 · <a href="https://www.credly.com/badges/d87d69f5-5211-41b2-afbb-d1709b7a12ab/linked_in_profile" target="_blank" rel="noopener" class="verify-link">verify ↗</a></span></p>
+        <p class="font-body cert-line">Meta Front-End Developer Professional Certificate <span style="color:#8A8A84;">· Meta · Sep 2024 · <a href="https://coursera.org/share/9e56395bbafe5b7a3d7d84e2700c3da6" target="_blank" rel="noopener" class="verify-link">verify ↗</a></span></p>
+        <p class="font-body cert-line">Prompt Engineering for ChatGPT <span style="color:#8A8A84;">· Vanderbilt University · Aug 2024 · <a href="https://coursera.org/share/cff76e89b513faaaa365daa2645137c8" target="_blank" rel="noopener" class="verify-link">verify ↗</a></span></p>
+        <p class="font-body cert-line">English Diploma, 6 Levels <span style="color:#8A8A84;">· JU Gate Academy · 2022 – Dec 2023</span></p>
       </div>
     </section>
 
@@ -940,11 +874,11 @@
   <!-- ── FOOTER ── -->
   <footer class="site-footer">
     <div class="footer-inner">
-      <p class="footer-copy">
+      <p class="font-body footer-copy">
         © 2026 Mohamed Younis ·
-        <a href="https://moyrith.me" class="footer-link" style="color:var(--ds-text-tertiary);">moyrith.me</a>
+        <a href="https://moyrith.me" class="footer-link" style="color:#8A8A84;">moyrith.me</a>
       </p>
-      <p class="footer-geo">
+      <p class="font-body footer-geo">
         Jordan · Gulf · Remote
       </p>
     </div>
@@ -981,365 +915,10 @@
   </div>
 
   <script>
-    /* =====================================================================
-       Liquid metal background renderer — a dispersion shader ported directly
-       from the core components to act as an ambient interactive layer that
-       covers the full document[cite: 1].
-       ===================================================================== */
-    const cv = document.getElementById('fx');
-    const gl = cv.getContext('webgl2', {alpha:true, antialias:false, premultipliedAlpha:true, powerPreference:'high-performance'});
-    
-    // Shader Strings imported byte-for-byte to maintain exact rendering mechanics[cite: 1]
-    const VERT = `#version 300 es\nin vec2 position; void main(){ gl_Position = vec4(position,0.,1.); }`;
-    const HEAD = `#version 300 es
-      precision highp float;
-      out vec4 o;
-      uniform vec2  uC;
-      uniform vec2  uHalf;
-      uniform float uT;
-      uniform float uHover;
-      uniform float uPress;
-      uniform vec4  uRip[3];
-      uniform vec4  uRipK;
-      uniform vec4  uRipK2;
-      uniform vec4  uPtr;
-      uniform vec4  uPtrK;
-      #define PI 3.14159265
-      float sdPill(vec2 p, vec2 b, float r){
-        vec2 q = abs(p) - b + r;
-        return min(max(q.x,q.y),0.) + length(max(q,0.)) - r;
-      }
-      float ripple(vec2 p, float t){
-        float sum = 0.;
-        for(int i = 0; i < 3; i++){
-          if(uRip[i].w < 0.5) continue;
-          float age = t - uRip[i].z;
-          if(age < 0. || age > 4.) continue;
-          vec2 rp = p - uRip[i].xy;
-          float facet = 1. + uRipK2.x * cos(uRipK2.y * atan(rp.y, rp.x) + age * 2.1 + float(i) * 2.4);
-          float x = (length(rp) - age * uRipK.x * facet) / uRipK.y;
-          sum += exp(-pow(abs(x) + 1e-4, uRipK2.z)) * exp(-age * uRipK.z);
-        }
-        return sum;
-      }
-      float pointerW(vec2 p){
-        if(uPtr.z < 0.001) return 0.;
-        float d = length(p - uPtr.xy) / uPtrK.x;
-        return exp(-d*d) * uPtr.z;
-      }
-      vec2 pointerWarp(vec2 p){
-        float w = pointerW(p);
-        if(w <= 0.) return vec2(0.);
-        return normalize(p - uPtr.xy + vec2(1e-5)) * w * (uPtrK.y + uPtrK.z * uPtr.w);
-      }
-    `;
-
-    const FRAG_SCENE = HEAD + `
-      uniform float uP[21];
-      float h21(vec2 p){
-        vec3 p3 = fract(vec3(p.xyx) * 0.1031);
-        p3 += dot(p3, p3.yzx + 33.33);
-        return fract((p3.x + p3.y) * p3.z);
-      }
-      float vn(vec2 p){
-        vec2 i = floor(p), f = fract(p);
-        f = f*f*(3.-2.*f);
-        float a = h21(i), b = h21(i+vec2(1,0)), c = h21(i+vec2(0,1)), d = h21(i+vec2(1,1));
-        return mix(mix(a,b,f.x), mix(c,d,f.x), f.y) * 2. - 1.;
-      }
-      float fbm(vec2 p, float g){
-        float s = 0., a = 1., n = 0.;
-        for(int i=0;i<4;i++){ s += a*vn(p); n += a; p = p*2.03 + 11.7; a *= g; }
-        return s / n;
-      }
-      float fbm(vec2 p){ return fbm(p, 0.5); }
-      float wig(float x, float t, float seed){
-        return vn(vec2(x, t*0.150 + seed)) * 0.60
-             + vn(vec2(x*2.07 + 4., t*0.105 + seed)) * 0.27
-             + vn(vec2(x*4.30 - 7., t*0.080 + seed)) * 0.13;
-      }
-      float valleyAt(vec2 p, float t){ return wig(p.x*uP[0], t, 0.0) * uP[1]; }
-      float densAt  (vec2 p, float t){ return uP[2] * exp(uP[3] * wig(p.x*uP[4] + 9.0, t, 2.7)); }
-      float surface(vec2 p, float t){
-        float V = (p.y - valleyAt(p,t)) * densAt(p,t);
-        V += uP[5] * fbm(p*vec2(0.8, 1.7)*uP[6] + vec2(t*0.05, -t*0.03), uP[17]);
-        return V - uP[7];
-      }
-      float tone(float v){
-        float u = fract(v);
-        float e = uP[9], W = uP[10] * 0.5;
-        return smoothstep(0.5-W-e, 0.5-W, u) * (1. - smoothstep(0.5+W, 0.5+W+e, u));
-      }
-      vec3 spec(float t){ return clamp(vec3(1.5) - abs(4.*t - vec3(3.,2.,1.)), 0., 1.); }
-      void main(){
-        vec2 d = gl_FragCoord.xy - uC;
-        float sd = sdPill(d, uHalf, uHalf.y);
-        float pill = 1. - smoothstep(-1., 1., sd);
-        float S = uHalf.y * 2.;
-        float t = uT;
-        if(uHover <= 0.0015 || pill <= 0.0015){ o = vec4(0., 0., 0., pill); return; }
-        vec2 p = vec2(d.x, -d.y) / S;
-        vec2 q = p + pointerWarp(p);
-        float h0 = surface(q, t);
-        vec2 gp = vec2(dFdx(h0), -dFdy(h0)) * S;
-        float V = surface(q - gp * uP[8] / max(uP[2], .001), t);
-        vec2 gd = normalize(gp + vec2(1e-5));
-        V += uP[13] * fbm(vec2(dot(q,gd)*uP[14], dot(q, vec2(-gd.y,gd.x))*uP[14]*0.04) + vec2(0., t*0.06));
-        float rip = ripple(p, t);
-        float well = pointerW(p);
-        V += rip * uRipK.w;
-        const int N = 21;
-        float mid = 1. - pow(0.5, uP[12]);
-        vec3 col = vec3(0.), wsum = vec3(0.);
-        for(int i=0;i<N;i++){
-          float k = float(i)/float(N-1);
-          vec3 w = spec(k);
-          col += w * tone(V + ((1. - pow(1. - k, uP[12])) - mid) * uP[11]);
-          wsum += w;
-        }
-        col /= wsum;
-        col = pow(col, vec3(uP[15]));
-        float lit = smoothstep(uP[18], uP[19], q.y - valleyAt(q, t));
-        lit *= mix(1., lit, 0.55);
-        col *= uP[16] * lit;
-        col = col * (1. + rip * 1.15 + well * 0.60);
-        o = vec4(col * pill * uHover, pill);
-      }
-    `;
-
-    /* 
-      --- Preserved Liquid Metal Pipeline Segments for Original Size Constraints[cite: 1] ---
-      Since we are implementing the WebGL layer directly as the full page canvas, 
-      multi-pass softening and rim bloom passes are bypassed for immediate performance
-      at massive screen resolutions, however the shader bodies are exactly preserved.
-    */
-    const FRAG_RIM = HEAD + `
-      uniform float uBw;
-      uniform float uE[8];
-      float perim(vec2 d, float a, float r){
-        float P = 4.*a + 2.*PI*r;
-        float s;
-        if(d.x >= a){
-          float th = atan(d.y, d.x - a); if(th < 0.) th += 2.*PI;
-          s = (th <= PI*0.5) ? r*th : P - r*(2.*PI - th);
-        } else if(d.x <= -a){
-          float th = atan(d.y, d.x + a); if(th < 0.) th += 2.*PI;
-          s = r*PI*0.5 + 2.*a + r*(th - PI*0.5);
-        } else if(d.y >= 0.){
-          s = r*PI*0.5 + (a - d.x);
-        } else {
-          s = r*PI*1.5 + 2.*a + (d.x + a);
-        }
-        return s / P;
-      }
-      float pb(float u, float w){ u = fract(u); float x = min(u, 1.-u); return exp(-(x*x)/(w*w)); }
-      float rimHot(float s, float t){
-        float v = uE[0];
-        v += 0.62 * pb(s - t*uE[4], 0.075);
-        v += 0.44 * pb(s + t*uE[4]*0.63 + 0.41, 0.135);
-        v += 0.30 * pb(s - t*uE[4]*0.34 + 0.73, 0.200);
-        return v;
-      }
-      float rimBand(float sd, float off){ return 1. - smoothstep(0., uBw*1.05, abs(sd + uBw*0.55 + off)); }
-      void main(){
-        vec2 d = gl_FragCoord.xy - uC;
-        float sd = sdPill(d, uHalf, uHalf.y);
-        if(sd > uBw*2.5 || sd < -uBw*3.5){ o = vec4(0.); return; }
-        float a = max(uHalf.x - uHalf.y, 0.);
-        float s = perim(d, a, uHalf.y);
-        float top = mix(1., 0.5 + 0.5 * (d.y / uHalf.y), uE[5]);
-        vec2 p = vec2(d.x, -d.y) / (uHalf.y * 2.);
-        float lift = 1. + uPress * uE[6] + ripple(p, uT) * uE[7] + pointerW(p) * uPtrK.w;
-        o = vec4(vec3(
-          rimBand(sd,  uE[2]) * rimHot(s + uE[3], uT),
-          rimBand(sd,  0.   ) * rimHot(s,         uT),
-          rimBand(sd, -uE[2]) * rimHot(s - uE[3], uT)
-        ) * uE[1] * top * lift, 1.);
-      }
-    `;
-    const FRAG_DOWN = `#version 300 es
-      precision highp float; out vec4 o;
-      uniform sampler2D uTex, uTex2; uniform vec2 uDstTexel, uSrcTexel; uniform float uAdd;
-      void main(){
-        vec2 uv = gl_FragCoord.xy * uDstTexel; vec2 e = uDstTexel * 0.25;
-        vec4 s = texture(uTex, uv + vec2(-e.x,-e.y)) + texture(uTex, uv + vec2( e.x,-e.y))
-               + texture(uTex, uv + vec2(-e.x, e.y)) + texture(uTex, uv + vec2( e.x, e.y));
-        s *= 0.25;
-        if(uAdd > 0.5){
-          vec4 r = texture(uTex2, uv + vec2(-e.x,-e.y)) + texture(uTex2, uv + vec2( e.x,-e.y))
-                 + texture(uTex2, uv + vec2(-e.x, e.y)) + texture(uTex2, uv + vec2( e.x, e.y));
-          s.rgb += r.rgb * 0.25;
-        }
-        o = s;
-      }
-    `;
-    const FRAG_BLUR = `#version 300 es
-      precision highp float; out vec4 o;
-      uniform sampler2D uTex; uniform vec2 uTexel, uDir; uniform float uR;
-      void main(){
-        vec2 uv = gl_FragCoord.xy * uTexel; vec2 st = uTexel * uDir * uR;
-        vec4 s = texture(uTex, uv) * 0.1964;
-        s += (texture(uTex, uv + st*1.4118) + texture(uTex, uv - st*1.4118)) * 0.2969;
-        s += (texture(uTex, uv + st*3.2941) + texture(uTex, uv - st*3.2941)) * 0.0944;
-        s += (texture(uTex, uv + st*5.1765) + texture(uTex, uv - st*5.1765)) * 0.0104;
-        o = s;
-      }
-    `;
-    const FRAG_COMP = HEAD + `
-      uniform sampler2D uSoft, uRim, uGlow;
-      uniform vec2 uRes; uniform float uGlowGain, uGlowIn, uOccl, uDim, uPunch;
-      void main(){
-        vec2 uv = gl_FragCoord.xy / uRes; vec3 glow = texture(uGlow, uv).rgb;
-        vec2 d = gl_FragCoord.xy - uC; float sd = sdPill(d, uHalf, uHalf.y);
-        float pill = 1. - smoothstep(-1., 1., sd);
-        vec4 m = texture(uSoft, uv);
-        float veil = 1. - smoothstep(0.46, 0.88, abs(d.y) / uHalf.y);
-        vec3 metal = pow(max(m.rgb / max(m.a, 1e-3), 0.), vec3(uPunch));
-        vec3 core = metal * pill * mix(1., uDim, veil) + texture(uRim, uv).rgb;
-        float rip = ripple(vec2(d.x, -d.y) / (uHalf.y * 2.), uT);
-        core += vec3(rip * rip) * uRipK2.w * pill * mix(1., 0.42, veil);
-        float sdSh = sdPill(d + vec2(0., uHalf.y * 0.62), uHalf * 0.94, uHalf.y * 0.94);
-        float occl = uOccl * exp(-max(sdSh, 0.) / (uHalf.y * 0.75));
-        vec3 rgb = core + glow * uGlowGain * mix(1., uGlowIn, pill) * (1. - occl * (1. - pill));
-        float a = clamp(max(rgb.r, max(rgb.g, rgb.b)), 0., 1.);
-        o = vec4(min(rgb, vec3(1.)), a);
-      }
-    `;
-
-    // Core Tuning Hooks inherited from source configuration[cite: 1]
-    const P = {
-      valFreq: 0.50, valAmp: 0.55, dens: 2.40, densVar: 2.20, densFreq: 0.32,
-      wobAmp: 0.12, wobFreq: 1.60, lift: 0.05, refract: 0.18, edge: 0.04,
-      width: 0.46, disp: 0.30, skew: 1.50, fineAmp: 0.0, fineFreq: 9.0,
-      gamma: 1.00, gain: 1.90, octGain: 0.32, litLo: -0.26, litHi: 0.10, dim: 0.44
-    };
-    const PKEYS = Object.keys(P);
-    const uArr = new Float32Array(PKEYS.length);
-    
-    // Ambient Ripple Pointer Engine Configurations[cite: 1]
-    const R = { 
-      ptrRad: 0.55, ptrAmp: 0.32, ptrFast: 0.40, ptrRim: 0.80, ptrLag: 0.0016, ptrVref: 4.5,
-      speed: 1.85, width: 0.20, decay: 1.35, amp: 1.35, facet: 0.18, lobes: 6.0, sharp: 1.15, emit: 0.45 
-    };
-    const ripArr = new Float32Array(12);
-    const RIP = [0,1,2].map(() => ({x:0, y:0, t:-99, on:0}));
-    let ripNext = 0;
-    
-    let clock = 0;
-    function addRipple(x, y){
-      const r = RIP[ripNext];
-      ripNext = (ripNext + 1) % RIP.length;
-      r.x = x; r.y = y; r.t = clock; r.on = 1;
-    }
-    
-    let ptr = {x:0, y:0}, ptrS = {x:0, y:0};
-    let ptrSpeed = 0, ptrAmt = 1;
-    let on = {press: false};
-    
-    // WebGL Core Injection Setup
-    if(gl) {
-      function sh(type, src){
-        const s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s);
-        return s;
-      }
-      function prog(fs){
-        const p = gl.createProgram();
-        gl.attachShader(p, sh(gl.VERTEX_SHADER, VERT));
-        gl.attachShader(p, sh(gl.FRAGMENT_SHADER, fs));
-        gl.bindAttribLocation(p, 0, 'position');
-        gl.linkProgram(p);
-        const u = {};
-        const n = gl.getProgramParameter(p, gl.ACTIVE_UNIFORMS);
-        for(let i=0;i<n;i++){ const info = gl.getActiveUniform(p,i); u[info.name.replace('[0]','')] = gl.getUniformLocation(p, info.name); }
-        return {p, u};
-      }
-      
-      const pScene = prog(FRAG_SCENE);
-      const vao = gl.createVertexArray(); gl.bindVertexArray(vao);
-      const vbo = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, vbo);
-      gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 3,-1, -1,3]), gl.STATIC_DRAW);
-      gl.enableVertexAttribArray(0); gl.vertexAttribPointer(0, 2, gl.FLOAT, false, 0, 0);
-
-      let last = performance.now();
-
-      function frame(now){
-        const dtRaw = (now - last) / 1000; last = now;
-        const dt = Math.min(dtRaw, 1/20);
-        clock += dt;
-
-        // Pointer inertia calculations for global stage
-        const lag = 1 - Math.pow(R.ptrLag, dt);
-        const dx = (ptr.x - ptrS.x) * lag, dy = (ptr.y - ptrS.y) * lag;
-        ptrS.x += dx; ptrS.y += dy;
-        const inst = Math.min(Math.hypot(dx, dy) / Math.max(dt, 1e-3) / R.ptrVref, 1);
-        ptrSpeed += (inst - ptrSpeed) * (1 - Math.pow(inst > ptrSpeed ? 0.001 : 0.02, dt));
-
-        // Evaluate rippling pools
-        for(let i = 0; i < RIP.length; i++){
-          const r = RIP[i];
-          if(r.on && clock - r.t > 4) r.on = 0;
-          ripArr[i*4] = r.x; ripArr[i*4+1] = r.y; ripArr[i*4+2] = r.t; ripArr[i*4+3] = r.on;
-        }
-        
-        let W = window.innerWidth;
-        let H = window.innerHeight;
-        let DPR = window.devicePixelRatio || 1;
-        W = Math.round(W * DPR);
-        H = Math.round(H * DPR);
-
-        if(cv.width !== W || cv.height !== H) { cv.width = W; cv.height = H; }
-        
-        gl.viewport(0, 0, W, H);
-        gl.useProgram(pScene.p);
-        
-        for(let i = 0; i < uArr.length; i++) uArr[i] = P[PKEYS[i]];
-        
-        // Full Page Layered Extension coordinates
-        gl.uniform2f(pScene.u.uC, W/2, H/2);
-        gl.uniform2f(pScene.u.uHalf, W, H); 
-        
-        gl.uniform1f(pScene.u.uT, clock);
-        gl.uniform1f(pScene.u.uHover, 1.0); // Keep ambient background entirely lit
-        gl.uniform1f(pScene.u.uPress, on.press ? 1.0 : 0.0);
-        gl.uniform4fv(pScene.u.uRip, ripArr);
-        gl.uniform4f(pScene.u.uRipK, R.speed, R.width, R.decay, R.amp);
-        gl.uniform4f(pScene.u.uRipK2, R.facet, R.lobes, R.sharp, R.emit);
-        gl.uniform4f(pScene.u.uPtr, ptrS.x, ptrS.y, ptrAmt, ptrSpeed);
-        gl.uniform4f(pScene.u.uPtrK, R.ptrRad, R.ptrAmp, R.ptrFast, R.ptrRim);
-        gl.uniform1fv(pScene.u.uP, uArr);
-        
-        gl.drawArrays(gl.TRIANGLES, 0, 3);
-        requestAnimationFrame(frame);
-      }
-      requestAnimationFrame(frame);
-
-      // Track pointer completely across the ambient body
-      window.addEventListener('pointermove', e => {
-        let W = cv.width, H = cv.height;
-        let S = H * 2; // Exact component scale modifier
-        let DPR = window.devicePixelRatio || 1;
-        ptr.x = (e.clientX * DPR - W/2) / S;
-        ptr.y = -(e.clientY * DPR - H/2) / S; // Translate into y-up coordinates
-      }, {passive:true});
-
-      window.addEventListener('pointerdown', e => {
-        on.press = true;
-        let W = cv.width, H = cv.height;
-        let S = H * 2;
-        let DPR = window.devicePixelRatio || 1;
-        addRipple((e.clientX * DPR - W/2)/S, -(e.clientY * DPR - H/2)/S);
-      });
-
-      window.addEventListener('pointerup', () => { on.press = false; });
-      window.addEventListener('pointercancel', () => { on.press = false; });
-    }
-
-    /* =====================================================================
-       DOM Interactions & State Handlers
-       ===================================================================== */
     document.addEventListener('DOMContentLoaded', () => {
-      
+      // =========================================================
       // Project Preview Modal Engine
+      // =========================================================
       const overlay = document.getElementById('previewOverlay');
       const dialog = overlay.querySelector('.preview-dialog');
       const iframe = document.getElementById('previewIframe');
@@ -1353,6 +932,7 @@
       let loadTimer = null;
       let lastFocused = null;
 
+      // Explicit JS click handler to guarantee tab opening via dynamic URLs
       openBtn.addEventListener('click', (e) => {
         e.preventDefault();
         const url = openBtn.href;
@@ -1424,7 +1004,9 @@
         if (e.key === 'Escape' && overlay.classList.contains('is-open')) closePreview();
       });
 
-      // Premium Kinetic Inertial Page Scroll Engine
+      // =========================================================
+      // Premium Kinetic Inertial Page Scroll Engine (desktop wheel only)
+      // =========================================================
       let scrollCurrentY = window.scrollY;
       let scrollTargetY = window.scrollY;
       let isInteracting = false;
