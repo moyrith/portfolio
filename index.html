@@ -15,7 +15,7 @@
        LIQUID METAL DESIGN SYSTEM — CORE TOKENS & RESET
        ========================================================================== */
     /* A shadow needs something to fall on: a soft ambient pool lifts the
-       ground just off black so the button reads as sitting above it.[cite: 1] */
+       ground just off black so the background reads as sitting above it.[cite: 1] */
     :root {
       --ds-bg-core: #000;
       --ds-bg-ambient: radial-gradient(46vmax 32vmax at 50% 47%, #191b21 0%, #0e0f13 34%, #050506 62%, #000 88%) #000;
@@ -51,7 +51,7 @@
     html { scroll-behavior: auto; height: 100%; }
     
     body {
-      background: var(--ds-bg-ambient);
+      background: transparent;
       color: var(--ds-text-secondary);
       font-family: var(--ds-font-sans);
       font-optical-sizing: auto;
@@ -63,7 +63,7 @@
       isolation: isolate;
     }
 
-    /* Container for the article-headings-component[cite: 1] */
+    /* Container for the article-headings-component subtle grain texture overlay[cite: 1] */
     body::after {
       position: fixed;
       inset: 0;
@@ -76,40 +76,25 @@
     }
 
     /* ==========================================================================
-       LIQUID METAL CANVAS BACKGROUND (HERO STAGE)
+       LIQUID METAL CANVAS BACKGROUND (FULL PAGE LAYERED EFFECT)
        ========================================================================== */
-    .hero-stage {
-      position: absolute;
-      top: 0; left: 0; right: 0; height: 100vh;
-      z-index: 0;
-      overflow: hidden;
+    #liquid-bg-layer {
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      background: var(--ds-bg-ambient);
       pointer-events: none;
-      display: grid;
-      place-items: center;
-      --h: 220px;
-      --u: calc(var(--h) / 516);
-      --bw: calc(1407 * var(--u));
-      --bh: var(--h);
-      --pad: calc(900 * var(--u));
+      overflow: hidden;
     }
     
-    .hero-stage .plate {
-      position: absolute;
-      width: var(--bw); height: var(--bh);
-      border-radius: 999px;
-      background: var(--ds-bg-plate);
-      box-shadow: 
-        0 calc(var(--h) * 0.10) calc(var(--h) * 0.22) rgba(0,0,0,.72),
-        0 calc(var(--h) * 0.30) calc(var(--h) * 0.66) rgba(0,0,0,.62),
-        0 calc(var(--h) * 0.62) calc(var(--h) * 1.30) rgba(0,0,0,.42);
-      transition: box-shadow .38s cubic-bezier(.22,.61,.36,1), background .38s cubic-bezier(.22,.61,.36,1);
-      opacity: 0.15; /* Dimmed to act as hero background */
-      transform: translateY(-10vh);
-    }
-    
-    .hero-stage canvas#fx {
-      position: absolute; inset: 0; width: 100%; height: 100%; display: block;
-      opacity: 0.35; /* Blended into the ambient pool */
+    #liquid-bg-layer canvas#fx {
+      position: absolute; 
+      inset: 0; 
+      width: 100%; 
+      height: 100%; 
+      display: block;
+      opacity: 0.35; /* Blended into the ambient pool to maintain text readability */
+      mix-blend-mode: screen;
     }
 
     /* ==========================================================================
@@ -452,10 +437,11 @@
     .service-card {
       border: 1px solid var(--ds-border-dock);
       padding: 24px;
-      background: var(--ds-bg-plate-hot);
+      background: rgba(8, 9, 10, 0.65);
       border-radius: 8px;
       transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
       -webkit-tap-highlight-color: transparent;
+      backdrop-filter: blur(12px);
     }
     .service-card:hover { 
       border-color: var(--ds-border-item-hover); 
@@ -656,7 +642,7 @@
 
     /* Mobile-specific refinements */
     @media (max-width: 639px) {
-      .header-logo { display: none; } /* Simplify dock on mobile */
+      .header-logo { display: none; }
       .preview-overlay { padding: 0; }
       .preview-dialog {
         max-width: 100%; height: 100dvh; max-height: none;
@@ -675,15 +661,13 @@
 </head>
 <body class="font-body">
 
-  <!-- ── LIQUID METAL ENGINE BACKGROUND STAGE ── -->
-  <!-- Recreates the authored Liquid Metal ambient background mechanics[cite: 1] -->
-  <div class="hero-stage" id="stage" aria-hidden="true">
-    <div class="plate" aria-hidden="true"></div>
+  <!-- ── LIQUID METAL FULL PAGE LAYER (WEBGL RENDERING) ── -->
+  <!-- Utilizes the spectral dispersion field as a background page layer instead of an isolated component pill[cite: 1] -->
+  <div id="liquid-bg-layer" aria-hidden="true">
     <canvas id="fx"></canvas>
   </div>
 
   <!-- ── HEADER (ANIMATED TOP DOCK COMPONENT) ── -->
-  <!-- Implements animated-top-dock__nav styling[cite: 1] -->
   <header class="site-header">
     <div class="header-inner">
       <span class="header-logo">Moyrith</span>
@@ -742,7 +726,6 @@
     </section>
 
     <!-- PROJECTS -->
-    <!-- Formatted with article-headings-component specs[cite: 1] -->
     <section class="section">
       <div class="section-label-row">
         <span class="section-label">Projects</span>
@@ -1000,7 +983,8 @@
   <script>
     /* =====================================================================
        Liquid metal background renderer — a dispersion shader ported directly
-       from the core components to act as an ambient interactive layer[cite: 1].
+       from the core components to act as an ambient interactive layer that
+       covers the full document[cite: 1].
        ===================================================================== */
     const cv = document.getElementById('fx');
     const gl = cv.getContext('webgl2', {alpha:true, antialias:false, premultipliedAlpha:true, powerPreference:'high-performance'});
@@ -1123,7 +1107,106 @@
       }
     `;
 
-    // Tuning Hooks inherited from source configuration[cite: 1]
+    /* 
+      --- Preserved Liquid Metal Pipeline Segments for Original Size Constraints[cite: 1] ---
+      Since we are implementing the WebGL layer directly as the full page canvas, 
+      multi-pass softening and rim bloom passes are bypassed for immediate performance
+      at massive screen resolutions, however the shader bodies are exactly preserved.
+    */
+    const FRAG_RIM = HEAD + `
+      uniform float uBw;
+      uniform float uE[8];
+      float perim(vec2 d, float a, float r){
+        float P = 4.*a + 2.*PI*r;
+        float s;
+        if(d.x >= a){
+          float th = atan(d.y, d.x - a); if(th < 0.) th += 2.*PI;
+          s = (th <= PI*0.5) ? r*th : P - r*(2.*PI - th);
+        } else if(d.x <= -a){
+          float th = atan(d.y, d.x + a); if(th < 0.) th += 2.*PI;
+          s = r*PI*0.5 + 2.*a + r*(th - PI*0.5);
+        } else if(d.y >= 0.){
+          s = r*PI*0.5 + (a - d.x);
+        } else {
+          s = r*PI*1.5 + 2.*a + (d.x + a);
+        }
+        return s / P;
+      }
+      float pb(float u, float w){ u = fract(u); float x = min(u, 1.-u); return exp(-(x*x)/(w*w)); }
+      float rimHot(float s, float t){
+        float v = uE[0];
+        v += 0.62 * pb(s - t*uE[4], 0.075);
+        v += 0.44 * pb(s + t*uE[4]*0.63 + 0.41, 0.135);
+        v += 0.30 * pb(s - t*uE[4]*0.34 + 0.73, 0.200);
+        return v;
+      }
+      float rimBand(float sd, float off){ return 1. - smoothstep(0., uBw*1.05, abs(sd + uBw*0.55 + off)); }
+      void main(){
+        vec2 d = gl_FragCoord.xy - uC;
+        float sd = sdPill(d, uHalf, uHalf.y);
+        if(sd > uBw*2.5 || sd < -uBw*3.5){ o = vec4(0.); return; }
+        float a = max(uHalf.x - uHalf.y, 0.);
+        float s = perim(d, a, uHalf.y);
+        float top = mix(1., 0.5 + 0.5 * (d.y / uHalf.y), uE[5]);
+        vec2 p = vec2(d.x, -d.y) / (uHalf.y * 2.);
+        float lift = 1. + uPress * uE[6] + ripple(p, uT) * uE[7] + pointerW(p) * uPtrK.w;
+        o = vec4(vec3(
+          rimBand(sd,  uE[2]) * rimHot(s + uE[3], uT),
+          rimBand(sd,  0.   ) * rimHot(s,         uT),
+          rimBand(sd, -uE[2]) * rimHot(s - uE[3], uT)
+        ) * uE[1] * top * lift, 1.);
+      }
+    `;
+    const FRAG_DOWN = `#version 300 es
+      precision highp float; out vec4 o;
+      uniform sampler2D uTex, uTex2; uniform vec2 uDstTexel, uSrcTexel; uniform float uAdd;
+      void main(){
+        vec2 uv = gl_FragCoord.xy * uDstTexel; vec2 e = uDstTexel * 0.25;
+        vec4 s = texture(uTex, uv + vec2(-e.x,-e.y)) + texture(uTex, uv + vec2( e.x,-e.y))
+               + texture(uTex, uv + vec2(-e.x, e.y)) + texture(uTex, uv + vec2( e.x, e.y));
+        s *= 0.25;
+        if(uAdd > 0.5){
+          vec4 r = texture(uTex2, uv + vec2(-e.x,-e.y)) + texture(uTex2, uv + vec2( e.x,-e.y))
+                 + texture(uTex2, uv + vec2(-e.x, e.y)) + texture(uTex2, uv + vec2( e.x, e.y));
+          s.rgb += r.rgb * 0.25;
+        }
+        o = s;
+      }
+    `;
+    const FRAG_BLUR = `#version 300 es
+      precision highp float; out vec4 o;
+      uniform sampler2D uTex; uniform vec2 uTexel, uDir; uniform float uR;
+      void main(){
+        vec2 uv = gl_FragCoord.xy * uTexel; vec2 st = uTexel * uDir * uR;
+        vec4 s = texture(uTex, uv) * 0.1964;
+        s += (texture(uTex, uv + st*1.4118) + texture(uTex, uv - st*1.4118)) * 0.2969;
+        s += (texture(uTex, uv + st*3.2941) + texture(uTex, uv - st*3.2941)) * 0.0944;
+        s += (texture(uTex, uv + st*5.1765) + texture(uTex, uv - st*5.1765)) * 0.0104;
+        o = s;
+      }
+    `;
+    const FRAG_COMP = HEAD + `
+      uniform sampler2D uSoft, uRim, uGlow;
+      uniform vec2 uRes; uniform float uGlowGain, uGlowIn, uOccl, uDim, uPunch;
+      void main(){
+        vec2 uv = gl_FragCoord.xy / uRes; vec3 glow = texture(uGlow, uv).rgb;
+        vec2 d = gl_FragCoord.xy - uC; float sd = sdPill(d, uHalf, uHalf.y);
+        float pill = 1. - smoothstep(-1., 1., sd);
+        vec4 m = texture(uSoft, uv);
+        float veil = 1. - smoothstep(0.46, 0.88, abs(d.y) / uHalf.y);
+        vec3 metal = pow(max(m.rgb / max(m.a, 1e-3), 0.), vec3(uPunch));
+        vec3 core = metal * pill * mix(1., uDim, veil) + texture(uRim, uv).rgb;
+        float rip = ripple(vec2(d.x, -d.y) / (uHalf.y * 2.), uT);
+        core += vec3(rip * rip) * uRipK2.w * pill * mix(1., 0.42, veil);
+        float sdSh = sdPill(d + vec2(0., uHalf.y * 0.62), uHalf * 0.94, uHalf.y * 0.94);
+        float occl = uOccl * exp(-max(sdSh, 0.) / (uHalf.y * 0.75));
+        vec3 rgb = core + glow * uGlowGain * mix(1., uGlowIn, pill) * (1. - occl * (1. - pill));
+        float a = clamp(max(rgb.r, max(rgb.g, rgb.b)), 0., 1.);
+        o = vec4(min(rgb, vec3(1.)), a);
+      }
+    `;
+
+    // Core Tuning Hooks inherited from source configuration[cite: 1]
     const P = {
       valFreq: 0.50, valAmp: 0.55, dens: 2.40, densVar: 2.20, densFreq: 0.32,
       wobAmp: 0.12, wobFreq: 1.60, lift: 0.05, refract: 0.18, edge: 0.04,
@@ -1133,7 +1216,27 @@
     const PKEYS = Object.keys(P);
     const uArr = new Float32Array(PKEYS.length);
     
-    // Core setup required for ambient WebGL injection if supported[cite: 1]
+    // Ambient Ripple Pointer Engine Configurations[cite: 1]
+    const R = { 
+      ptrRad: 0.55, ptrAmp: 0.32, ptrFast: 0.40, ptrRim: 0.80, ptrLag: 0.0016, ptrVref: 4.5,
+      speed: 1.85, width: 0.20, decay: 1.35, amp: 1.35, facet: 0.18, lobes: 6.0, sharp: 1.15, emit: 0.45 
+    };
+    const ripArr = new Float32Array(12);
+    const RIP = [0,1,2].map(() => ({x:0, y:0, t:-99, on:0}));
+    let ripNext = 0;
+    
+    let clock = 0;
+    function addRipple(x, y){
+      const r = RIP[ripNext];
+      ripNext = (ripNext + 1) % RIP.length;
+      r.x = x; r.y = y; r.t = clock; r.on = 1;
+    }
+    
+    let ptr = {x:0, y:0}, ptrS = {x:0, y:0};
+    let ptrSpeed = 0, ptrAmt = 1;
+    let on = {press: false};
+    
+    // WebGL Core Injection Setup
     if(gl) {
       function sh(type, src){
         const s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s);
@@ -1157,33 +1260,78 @@
       gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 3,-1, -1,3]), gl.STATIC_DRAW);
       gl.enableVertexAttribArray(0); gl.vertexAttribPointer(0, 2, gl.FLOAT, false, 0, 0);
 
-      let clock = 0, last = performance.now();
-      const R = { ptrRad: 0.55, ptrAmp: 0.32, ptrFast: 0.40, ptrRim: 0.80, ptrLag: 0.0016, ptrVref: 4.5 };
-      let ripArr = new Float32Array(12);
+      let last = performance.now();
 
       function frame(now){
         const dtRaw = (now - last) / 1000; last = now;
-        clock += Math.min(dtRaw, 1/20);
+        const dt = Math.min(dtRaw, 1/20);
+        clock += dt;
+
+        // Pointer inertia calculations for global stage
+        const lag = 1 - Math.pow(R.ptrLag, dt);
+        const dx = (ptr.x - ptrS.x) * lag, dy = (ptr.y - ptrS.y) * lag;
+        ptrS.x += dx; ptrS.y += dy;
+        const inst = Math.min(Math.hypot(dx, dy) / Math.max(dt, 1e-3) / R.ptrVref, 1);
+        ptrSpeed += (inst - ptrSpeed) * (1 - Math.pow(inst > ptrSpeed ? 0.001 : 0.02, dt));
+
+        // Evaluate rippling pools
+        for(let i = 0; i < RIP.length; i++){
+          const r = RIP[i];
+          if(r.on && clock - r.t > 4) r.on = 0;
+          ripArr[i*4] = r.x; ripArr[i*4+1] = r.y; ripArr[i*4+2] = r.t; ripArr[i*4+3] = r.on;
+        }
         
-        let r = document.getElementById('stage').getBoundingClientRect();
-        let W = Math.round(r.width), H = Math.round(r.height);
+        let W = window.innerWidth;
+        let H = window.innerHeight;
+        let DPR = window.devicePixelRatio || 1;
+        W = Math.round(W * DPR);
+        H = Math.round(H * DPR);
+
         if(cv.width !== W || cv.height !== H) { cv.width = W; cv.height = H; }
         
         gl.viewport(0, 0, W, H);
         gl.useProgram(pScene.p);
         
         for(let i = 0; i < uArr.length; i++) uArr[i] = P[PKEYS[i]];
+        
+        // Full Page Layered Extension coordinates
         gl.uniform2f(pScene.u.uC, W/2, H/2);
-        gl.uniform2f(pScene.u.uHalf, W/2.5, H/3); // Fill stage space
+        gl.uniform2f(pScene.u.uHalf, W, H); 
+        
         gl.uniform1f(pScene.u.uT, clock);
-        gl.uniform1f(pScene.u.uHover, 1.0); // Always glowing ambiently
+        gl.uniform1f(pScene.u.uHover, 1.0); // Keep ambient background entirely lit
+        gl.uniform1f(pScene.u.uPress, on.press ? 1.0 : 0.0);
         gl.uniform4fv(pScene.u.uRip, ripArr);
+        gl.uniform4f(pScene.u.uRipK, R.speed, R.width, R.decay, R.amp);
+        gl.uniform4f(pScene.u.uRipK2, R.facet, R.lobes, R.sharp, R.emit);
+        gl.uniform4f(pScene.u.uPtr, ptrS.x, ptrS.y, ptrAmt, ptrSpeed);
+        gl.uniform4f(pScene.u.uPtrK, R.ptrRad, R.ptrAmp, R.ptrFast, R.ptrRim);
         gl.uniform1fv(pScene.u.uP, uArr);
         
         gl.drawArrays(gl.TRIANGLES, 0, 3);
         requestAnimationFrame(frame);
       }
       requestAnimationFrame(frame);
+
+      // Track pointer completely across the ambient body
+      window.addEventListener('pointermove', e => {
+        let W = cv.width, H = cv.height;
+        let S = H * 2; // Exact component scale modifier
+        let DPR = window.devicePixelRatio || 1;
+        ptr.x = (e.clientX * DPR - W/2) / S;
+        ptr.y = -(e.clientY * DPR - H/2) / S; // Translate into y-up coordinates
+      }, {passive:true});
+
+      window.addEventListener('pointerdown', e => {
+        on.press = true;
+        let W = cv.width, H = cv.height;
+        let S = H * 2;
+        let DPR = window.devicePixelRatio || 1;
+        addRipple((e.clientX * DPR - W/2)/S, -(e.clientY * DPR - H/2)/S);
+      });
+
+      window.addEventListener('pointerup', () => { on.press = false; });
+      window.addEventListener('pointercancel', () => { on.press = false; });
     }
 
     /* =====================================================================
@@ -1191,9 +1339,7 @@
        ===================================================================== */
     document.addEventListener('DOMContentLoaded', () => {
       
-      // =========================================================
-      // Project Preview Modal Engine (Dark variant styling preserved)
-      // =========================================================
+      // Project Preview Modal Engine
       const overlay = document.getElementById('previewOverlay');
       const dialog = overlay.querySelector('.preview-dialog');
       const iframe = document.getElementById('previewIframe');
@@ -1278,9 +1424,7 @@
         if (e.key === 'Escape' && overlay.classList.contains('is-open')) closePreview();
       });
 
-      // =========================================================
       // Premium Kinetic Inertial Page Scroll Engine
-      // =========================================================
       let scrollCurrentY = window.scrollY;
       let scrollTargetY = window.scrollY;
       let isInteracting = false;
